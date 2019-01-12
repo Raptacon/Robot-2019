@@ -4,7 +4,7 @@ import wpilib
 from wpilib.command.subsystem import Subsystem
 import wpilib.drive.differentialdrive as dd
 
-from commands.joystickDrive import JoystickDrive 
+from team3200.commands.joystickDrive import JoystickDrive 
 
 import team3200
 
