@@ -7,7 +7,7 @@ import ctre
 
 
 def createMotor(motorDescp):
-    
+    #Might want more motor types for set up
     if motorDescp['type'] == 'CANTalon':
         #if we want to use the built in encoder set it here
         if('pid' in motorDescp) and motorDescp['pid'] != None:

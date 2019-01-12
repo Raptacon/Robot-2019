@@ -5,17 +5,16 @@
 '''
 
 #add 'team3200' module to the search path
-import os
-import sys
-sys.path.insert(0, os.getcwd() + "\\..")
 import team3200
 import wpilib
 
 import commandbased
 
-import subsystems.driveTrain
+import team3200.subsystems.driveTrain
 
-#main robot
+#code to help run the robot
+
+#import sys       
 
 class MyRobot(commandbased.CommandBasedRobot):
     

@@ -25,9 +25,9 @@ class CANMap():
         self.driveMotors = {}
         driveMotors = {}
         driveMotors['leftMotor'] = {'channel':1, 'inverted':False, 'type':'CANTalon', 'pid':pid, 'rampRate':rampRate}
-        driveMotors['leftFollower'] = {'channel':2 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':1, 'rampRate':rampRate}
+        driveMotors['leftFollower'] = {'channel':2, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':1,"rampRate":rampRate}
         driveMotors['rightMotor'] = {'channel':0, 'inverted':False, 'type':'CANTalon', 'pid':pid, 'rampRate':rampRate}
-        driveMotors['rightFollower'] = {'channel':3 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':0, 'rampRate':rampRate}
+        driveMotors['rightFollower'] = {'channel':3, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':0,'talonPid':True,"rampRate":rampRate}
         self.driveMotors = driveMotors
         
 class PneumaticsMap():
