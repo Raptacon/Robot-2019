@@ -15,6 +15,9 @@ import team3200.subsystems.driveTrain
 #code to help run the robot
 
 #import sys       
+def exit(retval):
+    pass
+#    sys.exit(retval)       
 
 class MyRobot(commandbased.CommandBasedRobot):
     
