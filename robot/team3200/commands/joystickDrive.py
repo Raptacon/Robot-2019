@@ -15,8 +15,8 @@ class JoystickDrive(Command):
         
     def execute(self):
         dc = self.robot.driveController
-        leftSide = dc.getRawAxis(0)
-        rightSide = dc.getRawAxis(1)
+        leftSide = -dc.getRawAxis(1)
+        rightSide = -dc.getRawAxis(5)
         
         self.robot.dtSub.setTankDrive(leftSide,rightSide)
         
