@@ -22,7 +22,7 @@ class MyRobot(commandbased.CommandBasedRobot):
     
     def robotInit(self):
         team3200.getRobot = lambda x=0:self
-        self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
+        #self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
         self.driveController = wpilib.XboxController(0)
 
 
@@ -41,8 +41,8 @@ if __name__ == '__main__':
 
         #patch simulation
         #we update the simluation files to ours. If we update WPIlib these may break
-        import sim.ui
-        import sim.pygame_joysticks
+        #import sim.ui
+        #import sim.pygame_joysticks
         import pyfrc.sim
         import pyfrc.sim.pygame_joysticks
         pyfrc.sim.SimUI = sim.ui.SimUI
@@ -50,4 +50,4 @@ if __name__ == '__main__':
     except Exception as err:
             print("Failed to patch runtime. Error", err)
     
-    wpilib.run(MyRobot,physics_enabled=True)
+    #wpilib.run(MyRobot,physics_enabled=True)
