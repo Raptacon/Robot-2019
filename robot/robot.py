@@ -6,10 +6,12 @@
 #add 'team3200' module to the search path
 import team3200
 import wpilib
+from networktables import NetworkTables
 
 import commandbased
 
 import team3200.subsystems.driveTrain
+
 #from team3200.subsystems import driveTrain
 
 #code to help run the robot
@@ -23,8 +25,16 @@ class MyRobot(commandbased.CommandBasedRobot):
     
     def robotInit(self):
         team3200.getRobot = lambda x=0:self
+        self.networkTableInit()
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
         self.driveController = wpilib.XboxController(0)
+        
+    def networkTableInit(self):
+        NetworkTables.initialize(server = 'roborio-3200-frc.local')
+        
+        self.liveWindowTable = NetworkTables.getTable('LiveWindow')
+        self.liveWindowTable.putNumber('Sensitivity', -1)
+        
 
 
 
