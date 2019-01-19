@@ -7,9 +7,10 @@
 import team3200
 import wpilib
 from networktables import NetworkTables
-
+from wpilib.buttons.joystickbutton import JoystickButton
 import commandbased
-
+from team3200.commands.lights import Lights
+from team3200.commands.lights import GoodGood
 import team3200.subsystems.driveTrain
 
 #from team3200.subsystems import driveTrain
@@ -25,9 +26,11 @@ class MyRobot(commandbased.CommandBasedRobot):
     
     def robotInit(self):
         team3200.getRobot = lambda x=0:self
+        self.map = team3200.robotMap.RobotMap()
         self.networkTableInit()
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
         self.driveController = wpilib.XboxController(0)
+        self.createButtons()
         
     def networkTableInit(self):
         NetworkTables.initialize(server = 'roborio-3200-frc.local')
@@ -36,6 +39,11 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.liveWindowTable.putNumber('Sensitivity', -1)
         
 
+    def createButtons(self):
+        self.lightButton = JoystickButton(self.driveController, 3)
+        self.lightButton.whenPressed(Lights())
+        self.goodGoodButton = JoystickButton(self.driveController, 6)
+        self.goodGoodButton.whenPressed(GoodGood())
 
 
 if __name__ == '__main__':

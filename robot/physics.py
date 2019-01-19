@@ -41,9 +41,9 @@ class PhysicsEngine(object):
                 l_motor = hal_data['CAN'][1]['value']
 
             if hal_data['CAN'][0]['inverted']:
-                r_motor = hal_data['CAN'][0]['value']
-            else:
                 r_motor = -hal_data['CAN'][0]['value']
+            else:
+                r_motor = hal_data['CAN'][0]['value']
 
             tm_diff = tm_diff * 0.5
             speed,rot = drivetrains.two_motor_drivetrain(l_motor,r_motor)
