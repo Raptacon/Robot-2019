@@ -6,9 +6,10 @@
 #add 'team3200' module to the search path
 import team3200
 import wpilib
-
+from wpilib.buttons.joystickbutton import JoystickButton
 import commandbased
-
+from team3200.commands.lights import Lights
+from team3200.commands.lights import GoodGood
 import team3200.subsystems.driveTrain
 #from team3200.subsystems import driveTrain
 
@@ -23,9 +24,16 @@ class MyRobot(commandbased.CommandBasedRobot):
     
     def robotInit(self):
         team3200.getRobot = lambda x=0:self
+        self.map = team3200.robotMap.RobotMap()
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
         self.driveController = wpilib.XboxController(0)
+        self.createButtons()
 
+    def createButtons(self):
+        self.lightButton = JoystickButton(self.driveController, 3)
+        self.lightButton.whenPressed(Lights())
+        self.goodGoodButton = JoystickButton(self.driveController, 6)
+        self.goodGoodButton.whenPressed(GoodGood())
 
 
 if __name__ == '__main__':
