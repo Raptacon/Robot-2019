@@ -36,9 +36,9 @@ class PhysicsEngine(object):
         try: 
             
             if hal_data['CAN'][1]['inverted']:
-                l_motor =-hal_data['CAN'][1]['value']
-            else:
                 l_motor = hal_data['CAN'][1]['value']
+            else:
+                l_motor = -hal_data['CAN'][1]['value']
 
             if hal_data['CAN'][0]['inverted']:
                 r_motor = -hal_data['CAN'][0]['value']

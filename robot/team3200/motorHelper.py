@@ -40,7 +40,7 @@ def createMotor(motorDescp):
 
     if 'rampRate' in motorDescp:
         motor.configOpenLoopRamp(motorDescp['rampRate'],10)    
-
+    return motor
 #motor=map.CAN.driveMotors[name]
 #            motors[name]=ctre.wpi_talonsrx.WPI_TalonSRX(motor['channel'])
 #            motors[name]=ctre.wpi_talonsrx.WPI_TalonSRX(motor['channel'])
