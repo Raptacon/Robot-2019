@@ -1,6 +1,9 @@
 # Robot-2019
 Destination: Deep Space
 
+# Installing to the Robot itself (
+py install -rev
+
 # Upgrading from the prior 2018 libraries
 If you already installed the libraries from last year, you'll need to update to 2019 in order to get the 2019 game simulator field (in addition to the other proper libraries)
 
