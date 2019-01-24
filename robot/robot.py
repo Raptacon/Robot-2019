@@ -33,7 +33,7 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.driveController = wpilib.XboxController(0)
         self.createButtons()
         self.healthMonitor = team3200.subsystems.healthMonitor.HealthMonitor()
-        
+         
     def networkTableInit(self):
         NetworkTables.initialize(server = 'roborio-3200-frc.local')
         
