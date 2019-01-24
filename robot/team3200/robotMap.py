@@ -1,7 +1,7 @@
 
 
 import hal
-
+from rev import MotorType
 class RobotMap():
     """
     Robot map gathers all the hard coded values needed to interface with 
@@ -22,11 +22,17 @@ class CANMap():
         '''
         holds mappings to all the motors in the robot
         '''
+        rampRate = .2
+        pid = None
         self.shooterMotors = {}
         self.intakeMotors = {}
         driveMotors = {}
-        driveMotors['leftMotor'] = 0
-        driveMotors['rightMotor'] = 1
+
+        driveMotors['leftMotor'] = {'channel':0, 'inverted':True, 'type':'SparkMax', 'pid':pid, 'motorType':MotorType.kBrushless}
+        #driveMotors['leftFollower'] = {'channel':3, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':0, "rampRate":rampRate}
+        driveMotors['rightMotor'] = {'channel':1, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
+        #driveMotors['rightFollower'] = {'channel':2, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':1, "rampRate":rampRate}
+
         self.driveMotors = driveMotors
         
 
@@ -51,6 +57,9 @@ class ControllerMap():
             driverController['rightTread'] = 3
         else:
             driverController['rightTread'] = 5
+        
+        driverController['ledToggle'] = 3
+        driverController['goodGood'] = 4
         
         driverController['voltRumble'] = 8.0
         

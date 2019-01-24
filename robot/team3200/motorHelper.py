@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import wpilib
-
+import rev
 import ctre 
 
 
@@ -24,6 +24,10 @@ def createMotor(motorDescp):
         motor.setInverted(motorDescp['inverted'])
         
         motor.set(ctre.wpi_talonsrx.ControlMode.Follower, motorDescp['masterChannel'])
+        
+    elif motorDescp['type'] == 'SparkMax':
+        motor = rev.CANSparkMax(motorDescp['channel'], motorDescp['motorType'])
+        motor.setInverted(motorDescp['inverted'])
     else:
         print("Unknown Motor")
     
@@ -40,7 +44,7 @@ def createMotor(motorDescp):
 
     if 'rampRate' in motorDescp:
         motor.configOpenLoopRamp(motorDescp['rampRate'],10)    
-
+    return motor
 #motor=map.CAN.driveMotors[name]
 #            motors[name]=ctre.wpi_talonsrx.WPI_TalonSRX(motor['channel'])
 #            motors[name]=ctre.wpi_talonsrx.WPI_TalonSRX(motor['channel'])
@@ -85,3 +89,7 @@ class WPI_TalonFeedback(ctre.wpi_talonsrx.WPI_TalonSRX):
     def set(self, speed):
         return ctre.wpi_talonsrx.WPI_TalonSRX.set(self, self.controlType, speed * self.kInput)
             
+class SparkMaxFeedback(rev.CANSparkMax):
+    def __init__(self, motorDescp):
+        rev.CANSparkMax.__init__(self, motorDescp['channel'], motorDescp['motorType'])
+        self.motorDescp = motorDescp
