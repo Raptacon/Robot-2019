@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import wpilib
 import rev
 import ctre 
 

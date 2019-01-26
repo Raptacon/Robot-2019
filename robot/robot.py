@@ -3,7 +3,6 @@
     RobotDrive class.
 '''
 
-#add 'team3200' module to the search path
 import team3200
 import wpilib
 from networktables import NetworkTables
@@ -13,9 +12,7 @@ from team3200.commands.lights import Lights
 from team3200.commands.lights import GoodGood
 import team3200.subsystems.driveTrain
 
-#from team3200.subsystems import driveTrain
 
-#code to help run the robot
 
 #import sys       
 def exit(retval):
@@ -55,11 +52,9 @@ if __name__ == '__main__':
             wpilib._impl.main.exit = exit
             
         #fixes simulation rerun errors.
-        #todo verify this causes no issues on robot
         wpilib.DriverStation._reset()
 
-        #patch simulation
-        #we update the simluation files to ours. If we update WPIlib these may break
+        #patch sim
         import sim.ui
         import sim.pygame_joysticks
         import pyfrc.sim
