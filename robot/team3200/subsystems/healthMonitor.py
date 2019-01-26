@@ -21,7 +21,6 @@ class HealthMonitor(Subsystem):
     def rumbleOnLimits(self):
         if ( (self.warnVoltage > 0 or self.criVoltage > 0) and self.count < 1 ):
             self.volts = self.pdp.getVoltage()
-            self.volts = 13
             print (self.volts)
             if (self.volts > self.warnVoltage):
                 
