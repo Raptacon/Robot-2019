@@ -38,8 +38,10 @@ class MyRobot(commandbased.CommandBasedRobot):
         '''This sets up the network tables and adds a variable called sensitivity'''
         NetworkTables.initialize(server = 'roborio-3200-frc.local')
         
-        self.liveWindowTable = NetworkTables.getTable('LiveWindow')
-        self.liveWindowTable.putNumber('Sensitivity', -1)
+        for k, v in self.map.networkTableMap.networkTableValues.items():
+            #K for key, V for value
+            self.liveWindowTable = NetworkTables.getTable('Custom')
+            self.liveWindowTable.putNumber(k, v)
         
 
     def createButtons(self):
