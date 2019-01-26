@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-import wpilib
-
+# -*- coding: utf-8
 from wpilib.command.subsystem import Subsystem
 import wpilib.drive.differentialdrive as dd
 
@@ -8,8 +6,6 @@ from team3200.commands.joystickDrive import JoystickDrive
 
 import team3200
 import team3200.motorHelper
-
-import ctre
 
 class DriveTrainSub(Subsystem):
     '''
