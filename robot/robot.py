@@ -9,7 +9,7 @@ from networktables import NetworkTables
 from wpilib.buttons.joystickbutton import JoystickButton
 import commandbased
 from team3200.commands.lights import Lights
-from team3200.commands.lights import GoodGood
+from team3200.commands.lights import ExampleButton
 import team3200.subsystems.driveTrain
 
 
@@ -22,6 +22,7 @@ def exit(retval):
 class MyRobot(commandbased.CommandBasedRobot):
     
     def robotInit(self):
+        '''This is where the robot code starts.'''
         team3200.getRobot = lambda x=0:self
         self.map = team3200.robotMap.RobotMap()
         self.networkTableInit()
@@ -30,6 +31,7 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.createButtons()
         
     def networkTableInit(self):
+        '''This sets up the network tables and adds a variable called sensitivity'''
         NetworkTables.initialize(server = 'roborio-3200-frc.local')
         
         self.liveWindowTable = NetworkTables.getTable('LiveWindow')
@@ -37,10 +39,11 @@ class MyRobot(commandbased.CommandBasedRobot):
         
 
     def createButtons(self):
-        self.lightButton = JoystickButton(self.driveController, 3)
+        '''This creates all buttons, underneath are the lightButton, it toggles the light on and off. and the '''
+        self.lightButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['ledToggle'])
         self.lightButton.whenPressed(Lights())
-        self.goodGoodButton = JoystickButton(self.driveController, 6)
-        self.goodGoodButton.whenPressed(GoodGood())
+        self.exampleButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['exampleButton'])
+        self.exampleButton.whenPressed(ExampleButton())
 
 
 if __name__ == '__main__':
@@ -52,9 +55,11 @@ if __name__ == '__main__':
             wpilib._impl.main.exit = exit
             
         #fixes simulation rerun errors.
+        #todo verify this causes no issues on robot
         wpilib.DriverStation._reset()
 
-        #patch sim
+        #patch simulation
+        #we update the simluation files to ours. If we update WPIlib these may break
         import sim.ui
         import sim.pygame_joysticks
         import pyfrc.sim
