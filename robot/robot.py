@@ -12,6 +12,7 @@ import commandbased
 from team3200.commands.lights import Lights
 from team3200.commands.lights import GoodGood
 import team3200.subsystems.driveTrain
+import team3200.subsystems.healthMonitor
 
 #from team3200.subsystems import driveTrain
 
@@ -31,6 +32,7 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
         self.driveController = wpilib.XboxController(0)
         self.createButtons()
+        self.healthMonitor = team3200.subsystems.healthMonitor.HealthMonitor()
         
     def networkTableInit(self):
         NetworkTables.initialize(server = 'roborio-3200-frc.local')
