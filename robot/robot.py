@@ -12,6 +12,8 @@ import commandbased
 from team3200.commands.lights import Lights
 from team3200.commands.lights import ExampleButton
 import team3200.subsystems.driveTrain
+import team3200.subsystems.healthMonitor
+
 
 class MyRobot(commandbased.CommandBasedRobot):
     
@@ -20,9 +22,10 @@ class MyRobot(commandbased.CommandBasedRobot):
         team3200.getRobot = lambda x=0:self
         self.map = team3200.robotMap.RobotMap()
         self.networkTableInit()
-        self.driveInit()
-        self.controllerInit()
-        
+        self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
+        self.driveController = wpilib.XboxController(0)
+        self.createButtons()
+        self.healthMonitor = team3200.subsystems.healthMonitor.HealthMonitor()
     
     def networkTableInit(self):
         '''This sets up the network tables and adds a variable called sensitivity'''
