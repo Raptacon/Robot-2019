@@ -2,17 +2,23 @@
 
 from wpilib.command import Command
 import hal
+import team3200
+
 class JoystickDrive(Command):
     """
     This command will read the joystick values that are used
     to control the robot drive train and then set the drivetrain subsystem
     """
     
-    def __init__(self, robot):
+    def __init__(self, ntSensitivity = None):
         super().__init__("Joystick Drive")
-        self.robot = robot
+        self.robot = team3200.getRobot()
         self.requires(self.robot.dtSub)
+        
         self.sensitivity = -1
+        if type(ntSensitivity) != None:    
+            self.sensitivity = ntSensitivity.getNumber(-1)
+        
         
     def setSensitivity(self, newSensitivity):
         self.sensitivity = newSensitivity

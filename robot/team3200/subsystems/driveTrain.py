@@ -35,5 +35,6 @@ class DriveTrainSub(Subsystem):
         self.driveTrain.arcadeDrive(speed, rot)
 
     def initDefaultCommand(self):
-        self.setDefaultCommand(JoystickDrive(self.robot))
+        if self.defaultCommand == None:
+            self.setDefaultCommand(JoystickDrive())
         
