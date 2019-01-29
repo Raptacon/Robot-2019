@@ -3,7 +3,6 @@
     RobotDrive class.
 '''
 
-#add 'team3200' module to the search path
 import team3200
 import wpilib
 from networktables import NetworkTables
@@ -13,7 +12,6 @@ from team3200.commands.lights import Lights
 from team3200.commands.lights import ExampleButton
 import team3200.subsystems.driveTrain
 import team3200.subsystems.healthMonitor
-
 
 class MyRobot(commandbased.CommandBasedRobot):
     
