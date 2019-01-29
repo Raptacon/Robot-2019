@@ -14,10 +14,7 @@ import team3200.subsystems.driveTrain
 
 
 
-#import sys       
-def exit(retval):
-    pass
-#    sys.exit(retval)
+
 
 class MyRobot(commandbased.CommandBasedRobot):
     
@@ -65,3 +62,8 @@ if __name__ == '__main__':
             print("Failed to patch runtime. Error", err)
     
     wpilib.run(MyRobot,physics_enabled=True)
+
+#import sys       
+def exit(retval):
+    pass
+#    sys.exit(retval)

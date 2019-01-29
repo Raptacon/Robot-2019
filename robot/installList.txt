@@ -1,3 +1,5 @@
 pyfrc
 pyrobot
 robotpy-ctre
+robotpy-rev
+pygame
