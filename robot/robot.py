@@ -8,8 +8,8 @@ import wpilib
 from networktables import NetworkTables
 from wpilib.buttons.joystickbutton import JoystickButton
 import commandbased
-from team3200.commands.lights import Lights
-from team3200.commands.lights import GoodGood
+from team3200.commands.cameraLightController import Lights
+from team3200.commands.cameraLightController import GoodGood
 import team3200.subsystems.driveTrain
 
 
