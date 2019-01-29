@@ -13,16 +13,6 @@ from team3200.commands.lights import Lights
 from team3200.commands.lights import ExampleButton
 import team3200.subsystems.driveTrain
 
-
-#from team3200.subsystems import driveTrain
-
-#code to help run the robot
-
-#import sys       
-def exit(retval):
-    pass
-#    sys.exit(retval)
-
 class MyRobot(commandbased.CommandBasedRobot):
     
     def robotInit(self):
@@ -30,10 +20,10 @@ class MyRobot(commandbased.CommandBasedRobot):
         team3200.getRobot = lambda x=0:self
         self.map = team3200.robotMap.RobotMap()
         self.networkTableInit()
-        self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
-        self.driveController = wpilib.XboxController(0)
-        self.createButtons()
+        self.driveInit()
+        self.controllerInit()
         
+    
     def networkTableInit(self):
         '''This sets up the network tables and adds a variable called sensitivity'''
         NetworkTables.initialize(server = 'roborio-3200-frc.local')
@@ -42,13 +32,16 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.liveWindowTable.putNumber('Sensitivity', -1)
         
 
-    def createButtons(self):
-        '''This creates all buttons, underneath are the lightButton, it toggles the light on and off. and the '''
-        self.lightButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['ledToggle'])
+    def controllerInit(self):
+        self.driveController = wpilib.XboxController(0)
+        self.lightButton = JoystickButton(self.driveController, 3)
+
         self.lightButton.whenPressed(Lights())
         self.exampleButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['exampleButton'])
         self.exampleButton.whenPressed(ExampleButton())
 
+    def driveInit(self):
+        self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
 
 if __name__ == '__main__':
     try:
@@ -74,3 +67,6 @@ if __name__ == '__main__':
             print("Failed to patch runtime. Error", err)
     
     wpilib.run(MyRobot,physics_enabled=True)
+
+def exit(retval):
+    pass
