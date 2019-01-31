@@ -22,7 +22,7 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.networkTableInit()
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
         self.driveController = wpilib.XboxController(0)
-        self.createButtons()
+        self.controllerInit()
         self.healthMonitor = team3200.subsystems.healthMonitor.HealthMonitor()
     
     def networkTableInit(self):
@@ -35,15 +35,16 @@ class MyRobot(commandbased.CommandBasedRobot):
 
     def controllerInit(self):
         self.driveController = wpilib.XboxController(0)
-        self.lightButton = JoystickButton(self.driveController, 3)
-
+        self.auxController = wpilib.XboxController(1)
+        self.lightButton = JoystickButton(self.driveController, self.map.controllerMap.auxController['ledToggle'])
         self.lightButton.whenPressed(Lights())
-        self.exampleButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['exampleButton'])
+        self.exampleButton = JoystickButton(self.driveController, self.map.controllerMap.auxController['exampleButton'])
         self.exampleButton.whenPressed(ExampleButton())
 
     def driveInit(self):
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
-
+    def exit(retval):
+        pass
 if __name__ == '__main__':
     try:
         #patch no exit error if not running on robot
@@ -68,6 +69,3 @@ if __name__ == '__main__':
             print("Failed to patch runtime. Error", err)
     
     wpilib.run(MyRobot,physics_enabled=True)
-
-def exit(retval):
-    pass

@@ -57,8 +57,8 @@ class ControllerMap():
         else:
             driverController['rightTread'] = 5
         
-        driverController['ledToggle'] = 3
-        driverController['exampleButton'] = 6
+        auxController['ledToggle'] = 3
+        auxController['exampleButton'] = 6
         
         driverController['voltRumble'] = 8.0
         
