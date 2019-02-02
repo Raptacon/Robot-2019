@@ -10,7 +10,6 @@ from wpilib.buttons.joystickbutton import JoystickButton
 import commandbased
 from team3200.commands.lights import Lights
 from team3200.commands.lights import ExampleButton
-from team3200.commands.networkListeners import NetworkListeners as NT
 import team3200.subsystems.driveTrain
 import team3200.subsystems.healthMonitor
 
@@ -33,7 +32,6 @@ class MyRobot(commandbased.CommandBasedRobot):
         for k, v in self.map.networkTableMap.networkTableValues.items():
             #K for key, V for value
             self.liveWindowTable.putNumber(k, v)
-        
         
         
 
