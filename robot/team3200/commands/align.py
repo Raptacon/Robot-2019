@@ -16,7 +16,8 @@ class AlignButton(InstantCommand):
         '''This aligns the robot up to a target it sees when a button is pressed'''
         print("Alignment Started")
         if(self.table.getEntry('tv').value == 1):
-            while(self.tx < -2 and self.tx > 2):
+            self.tx = self.table.getNumber('tx', None)
+            while(self.tx < -2 or self.tx > 2):
                 self.tx = self.table.getNumber('tx', None)
                 if(self.tx < 0):
                     print(self.tx)
