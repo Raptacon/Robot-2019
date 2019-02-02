@@ -3,7 +3,6 @@
     RobotDrive class.
 '''
 
-#add 'team3200' module to the search path
 import team3200
 import wpilib
 from networktables import NetworkTables
@@ -11,28 +10,22 @@ from wpilib.buttons.joystickbutton import JoystickButton
 import commandbased
 from team3200.commands.lights import Lights
 from team3200.commands.lights import ExampleButton
+from team3200.commands.align import AlignButton
 import team3200.subsystems.driveTrain
-
-#from team3200.subsystems import driveTrain
-
-#code to help run the robot
-
-#import sys       
-def exit(retval):
-    pass
-#    sys.exit(retval)
+import team3200.subsystems.healthMonitor
 
 class MyRobot(commandbased.CommandBasedRobot):
     
-    def robotInit(self):
+    def robotInit(self): 
         '''This is where the robot code starts.'''
         team3200.getRobot = lambda x=0:self
         self.map = team3200.robotMap.RobotMap()
         self.networkTableInit()
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
         self.driveController = wpilib.XboxController(0)
-        self.createButtons()
-        
+        self.controllerInit()
+        self.healthMonitor = team3200.subsystems.healthMonitor.HealthMonitor()
+    
     def networkTableInit(self):
         '''This sets up the network tables and adds a variable called sensitivity'''
         NetworkTables.initialize(server = 'roborio-3200-frc.local')
@@ -41,14 +34,20 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.liveWindowTable.putNumber('Sensitivity', -1)
         
 
-    def createButtons(self):
-        '''This creates all buttons, underneath are the lightButton, it toggles the light on and off. and the '''
-        self.lightButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['ledToggle'])
+    def controllerInit(self):
+        self.driveController = wpilib.XboxController(self.map.controllerMap.driverController['controllerId'])
+        self.auxController = wpilib.XboxController(self.map.controllerMap.auxController['controllerId'])
+        self.lightButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['ledToggle'])
         self.lightButton.whenPressed(Lights())
-        self.exampleButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['exampleButton'])
-        self.exampleButton.whenPressed(ExampleButton())
+        self.exampleButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['exampleButton'])
+        self.exampleButton.whenPressed(ExampleButton(self.dtSub))
+        self.alignButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['alignButton'])
+        self.alignButton.whenPressed(AlignButton(self.dtSub))
 
-
+    def driveInit(self):
+        self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
+    def exit(retval):
+        pass
 if __name__ == '__main__':
     try:
         #patch no exit error if not running on robot

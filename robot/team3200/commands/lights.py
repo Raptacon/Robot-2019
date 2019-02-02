@@ -18,12 +18,14 @@ class LedMode(IntEnum):
     kON = 3
 
 class ExampleButton(InstantCommand):
-    def __init__(self):
+    def __init__(self, dtSub):
         super().__init__("ExampleButton")
+        self.dtSub = dtSub
         
     def execute(self):
         '''This button is an example and prints when you press the button'''
         print("Button Pressed")
+        self.dtSub.setTankDrive(-1, 1)
 
 class Lights(InstantCommand):
     

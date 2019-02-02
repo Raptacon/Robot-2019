@@ -1,4 +1,5 @@
-# -*- coding: utf-8
+# -*- coding: utf-8 -*-
+
 from wpilib.command.subsystem import Subsystem
 import wpilib.drive.differentialdrive as dd
 
@@ -9,7 +10,7 @@ import team3200.motorHelper
 
 class DriveTrainSub(Subsystem):
     '''
-    This is the subsystem to controller the robots wheels.
+    This is the subsystem to control the robots wheels.
     '''
     
     def __init__(self):
@@ -28,11 +29,14 @@ class DriveTrainSub(Subsystem):
         self.driveTrain = dd.DifferentialDrive(self.driveMotors['leftMotor'], self.driveMotors['rightMotor'])
         
     def setTankDrive(self, leftSide, rightSide):
-        self.driveTrain.tankDrive(leftSide, rightSide)
+        self.driveTrain.tankDrive(rightSide, leftSide)
         
     def setArcadeDrive(self, speed, rot):
         self.driveTrain.arcadeDrive(speed, rot)
 
     def initDefaultCommand(self):
         self.setDefaultCommand(JoystickDrive(self.robot))
+        
+    #def autoTurn(self, speedL, speedR):
+     #   self.driveTrain.tankDrive(speedL, speedR)
         
