@@ -17,13 +17,13 @@ class JoystickDrive(Command):
         
         self.sensitivity = -1
         if type(ntSensitivity) != None:    
-            self.sensitivity = ntSensitivity.getNumber(-1)\
+            self.sensitivity = ntSensitivity.getNumber(-1)
         
         ntSensitivity.addListener(self.setSensitivity, 0b010100) #trying to properly deal with bitmasks or whatever. should use flags from https://robotpy.readthedocs.io/projects/pynetworktables/en/latest/api.html#networktables.NetworkTablesInstance.NotifyFlags
 
         
     def setSensitivity(self, entry, key, value, param):
-        self.sensitivity = int(value)
+        self.sensitivity = value
         
     def getSensitivity(self):
         return self.sensitivity
