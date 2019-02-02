@@ -13,11 +13,11 @@ class AlignButton(InstantCommand):
         self.dtSub = dtSub
         
     def execute(self):
-        '''This button is an example and prints when you press the button'''
+        '''This aligns the robot up to a target it sees when a button is pressed'''
         print("Alignment Started")
         self.ta = self.table.getNumber('tv', None)
         if(self.ta in locals()):
-            while(self.tx < -5 and self.tx > 5):
+            while(self.tx < -2 and self.tx > 2):
                 self.tx = self.table.getNumber('tx', None)
                 if(self.tx < 0):
                     print(self.tx)
