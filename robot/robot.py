@@ -21,6 +21,7 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.map = team3200.robotMap.RobotMap()
         self.networkTableInit()
         self.driveInit()
+        self.controllerInit()
         self.driveController = wpilib.XboxController(0)
         self.healthMonitor = team3200.subsystems.healthMonitor.HealthMonitor()
     
