@@ -31,7 +31,7 @@ class JoystickDrive(Command):
     def execute(self):
         '''This sets up the axes on the controller to send into tankDrive'''
         dc = self.robot.driveController
-        leftSide = dc.getRawAxis(1)
+        leftSide = dc.getRawAxis(1) * self.sensitivity
         if hal.isSimulation():
             rightSide = dc.getRawAxis(3) * self.sensitivity
         else:
