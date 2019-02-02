@@ -15,7 +15,7 @@ import team3200.subsystems.healthMonitor
 
 class MyRobot(commandbased.CommandBasedRobot):
     
-    def robotInit(self):
+    def robotInit(self): 
         '''This is where the robot code starts.'''
         team3200.getRobot = lambda x=0:self
         self.map = team3200.robotMap.RobotMap()
@@ -34,11 +34,11 @@ class MyRobot(commandbased.CommandBasedRobot):
         
 
     def controllerInit(self):
-        self.driveController = wpilib.XboxController(0)
-        self.auxController = wpilib.XboxController(1)
-        self.lightButton = JoystickButton(self.driveController, self.map.controllerMap.auxController['ledToggle'])
+        self.driveController = wpilib.XboxController(self.map.controllerMap.driverController['controllerId'])
+        self.auxController = wpilib.XboxController(self.map.controllerMap.auxController['controllerId'])
+        self.lightButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['ledToggle'])
         self.lightButton.whenPressed(Lights())
-        self.exampleButton = JoystickButton(self.driveController, self.map.controllerMap.auxController['exampleButton'])
+        self.exampleButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['exampleButton'])
         self.exampleButton.whenPressed(ExampleButton())
 
     def driveInit(self):
