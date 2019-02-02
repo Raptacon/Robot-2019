@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from wpilib.command import Command
-import hal
 class JoystickDrive(Command):
     """
     This command will read the joystick values that are used
@@ -12,7 +11,7 @@ class JoystickDrive(Command):
         super().__init__("Joystick Drive")
         self.robot = robot
         self.requires(self.robot.dtSub)
-        self.sensitivity = 1
+        self.sensitivity = -1
         
     def setSensitivity(self, newSensitivity):
         self.sensitivity = newSensitivity

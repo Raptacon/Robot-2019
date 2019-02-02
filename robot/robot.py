@@ -10,6 +10,7 @@ from wpilib.buttons.joystickbutton import JoystickButton
 import commandbased
 from team3200.commands.lights import Lights
 from team3200.commands.lights import ExampleButton
+from team3200.commands.align import AlignButton
 import team3200.subsystems.driveTrain
 import team3200.subsystems.healthMonitor
 
@@ -40,6 +41,8 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.lightButton.whenPressed(Lights())
         self.exampleButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['exampleButton'])
         self.exampleButton.whenPressed(ExampleButton())
+        self.alignButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['alignButton'])
+        self.alignButton.whenPressed(AlignButton())
 
     def driveInit(self):
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()

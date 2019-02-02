@@ -51,13 +51,14 @@ class ControllerMap():
         driverController['controllerId'] = 0
         auxController['controllerId'] = 1
         
-        driverController['leftTread'] = 0
+        driverController['leftTread'] = 3
         if hal.isSimulation():
             driverController['rightTread'] = 1
         else:
             driverController['rightTread'] = 5
         
         auxController['ledToggle'] = 3
+        auxController['alignButton'] = 5
         auxController['exampleButton'] = 6
         
         driverController['voltRumble'] = 8.0
