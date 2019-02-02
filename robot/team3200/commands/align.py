@@ -21,8 +21,8 @@ class AlignButton(InstantCommand):
                 self.tx = self.table.getNumber('tx', None)
                 if(self.tx < 0):
                     print(self.tx)
-                    self.dtSub.setTankDrive(-1, 1)
+                    self.dtSub.autoTurn(-1, 1, 1000)
                 elif(self.tx > 0):
                     print(self.tx)
-                    self.dtSub.setTankDrive(1, -1)
+                    self.dtSub.autoTurn(1, -1, 1000)
                     

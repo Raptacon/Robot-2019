@@ -37,6 +37,8 @@ class DriveTrainSub(Subsystem):
     def initDefaultCommand(self):
         self.setDefaultCommand(JoystickDrive(self.robot))
         
-    #def autoTurn(self, speedL, speedR):
-     #   self.driveTrain.tankDrive(speedL, speedR)
-        
+    def autoTurn(self, speedL, speedR, timeMs):
+        t = 0
+        while t <= timeMs:
+            self.driveTrain.tankDrive(speedL, speedR)
+            t += 1
