@@ -26,11 +26,6 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.driveController = wpilib.XboxController(0)
         self.createButtons()
         
-    def networkTableInit(self):
-        NetworkTables.initialize(server = 'roborio-3200-frc.local')
-        
-        self.liveWindowTable = NetworkTables.getTable('LiveWindow')
-        self.liveWindowTable.putNumber('Sensitivity', -1)
         
 
     def createButtons(self):
@@ -39,6 +34,19 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.goodGoodButton = JoystickButton(self.driveController, 6)
         self.goodGoodButton.whenPressed(GoodGood())
 
+
+    def networkTableInit(self):
+        NetworkTables.initialize(server = 'roborio-3200-frc.local')
+        
+        self.liveWindowTable = NetworkTables.getTable('LiveWindow')
+        self.liveWindowTable.putNumber('Sensitivity', -1)
+
+
+#import sys       
+def exit(retval):
+    pass\
+    
+#    sys.exit(retval)
 
 if __name__ == '__main__':
     try:
@@ -62,8 +70,3 @@ if __name__ == '__main__':
             print("Failed to patch runtime. Error", err)
     
     wpilib.run(MyRobot,physics_enabled=True)
-
-#import sys       
-def exit(retval):
-    pass
-#    sys.exit(retval)
