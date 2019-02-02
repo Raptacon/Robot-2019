@@ -29,7 +29,7 @@ class DriveTrainSub(Subsystem):
         self.driveTrain = dd.DifferentialDrive(self.driveMotors['leftMotor'], self.driveMotors['rightMotor'])
         
     def setTankDrive(self, leftSide, rightSide):
-        self.driveTrain.tankDrive(rightSide, leftSide)
+        self.driveTrain.tankDrive(leftSide, rightSide)
         
     def setArcadeDrive(self, speed, rot):
         self.driveTrain.arcadeDrive(speed, rot)
