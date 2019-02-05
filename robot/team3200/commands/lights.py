@@ -25,7 +25,6 @@ class ExampleButton(InstantCommand):
     def execute(self):
         '''This button is an example and prints when you press the button'''
         print("Button Pressed")
-        self.dtSub.setTankDrive(-1, 1)
 
 class Lights(InstantCommand):
     

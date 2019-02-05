@@ -4,8 +4,26 @@ Created on Fri Feb  1 17:06:57 2019
 
 @author: Micro
 """
+from wpilib.command import Command
 from wpilib.command import InstantCommand
 from networktables import NetworkTables
+class LeftTurn(Command):
+    def __init__(self, dtSub):
+        super().__init__("Left Turn")
+        self.dtSub = dtSub
+        
+    def execute(self):
+        self.dtSub.autoTurn(-.5, .5)
+        
+class RightTurn(Command):
+    def __init__(self, dtSub):
+        super().__init__("Right Turn")
+        self.dtSub = dtSub
+        
+    def execute(self):
+        self.dtSub.autoTurn(.5, -.5)
+        
+            
 class AlignButton(InstantCommand):
     def __init__(self, dtSub):
         super().__init__("Align Button")
@@ -20,9 +38,11 @@ class AlignButton(InstantCommand):
             while(self.tx < -2 or self.tx > 2):
                 self.tx = self.table.getNumber('tx', None)
                 if(self.tx < 0):
-                    print(self.tx)
+                    '''Active when the target is to the left.'''
+                    #print(self.tx)
                     self.dtSub.autoTurn(-.5, .5)
                 elif(self.tx > 0):
-                    print(self.tx)
+                    '''Active when the target is to the right.'''
+                    #print(self.tx)
                     self.dtSub.autoTurn(.5, -.5)
-                    
+            

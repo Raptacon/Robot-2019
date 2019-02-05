@@ -9,8 +9,10 @@ from networktables import NetworkTables
 from wpilib.buttons.joystickbutton import JoystickButton
 import commandbased
 from team3200.commands.lights import Lights
-from team3200.commands.lights import ExampleButton
+from team3200.commands.align import RightTurn
+from team3200.commands.align import LeftTurn
 from team3200.commands.align import AlignButton
+
 import team3200.subsystems.driveTrain
 import team3200.subsystems.healthMonitor
 
@@ -39,9 +41,11 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.auxController = wpilib.XboxController(self.map.controllerMap.auxController['controllerId'])
         self.lightButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['ledToggle'])
         self.lightButton.whenPressed(Lights())
-        self.exampleButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['exampleButton'])
-        self.exampleButton.whenPressed(ExampleButton(self.dtSub))
-        self.alignButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['alignButton'])
+        self.leftButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['leftButton'])
+        self.leftButton.whileActive(LeftTurn(self.dtSub))
+        self.rightButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['rightButton'])
+        self.rightButton.whileHeld(RightTurn(self.dtSub))
+        self.alignButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['alignButton'])
         self.alignButton.whenPressed(AlignButton(self.dtSub))
 
     def driveInit(self):

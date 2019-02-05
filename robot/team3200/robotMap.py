@@ -58,8 +58,9 @@ class ControllerMap():
             driverController['rightTread'] = 5
         
         auxController['ledToggle'] = wpilib.XboxController.Button.kX
-        auxController['alignButton'] = wpilib.XboxController.Button.kA
-        auxController['exampleButton'] = wpilib.XboxController.Button.kB
+        driverController['alignButton'] = wpilib.XboxController.Button.kA
+        driverController['leftButton'] = wpilib.XboxController.Button.kBumperLeft
+        driverController['rightButton'] = wpilib.XboxController.Button.kBumperRight
         
         driverController['voltRumble'] = 8.0
         
