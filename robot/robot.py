@@ -12,8 +12,10 @@ from team3200.commands.lights import Lights
 from team3200.commands.align import RightTurn
 from team3200.commands.align import LeftTurn
 from team3200.commands.align import AlignButton
+from team3200.commands.shooterControl import IntakeButton
 
 import team3200.subsystems.driveTrain
+import team3200.subsystems.shooter
 import team3200.subsystems.healthMonitor
 
 class MyRobot(commandbased.CommandBasedRobot):
@@ -24,7 +26,9 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.map = team3200.robotMap.RobotMap()
         self.networkTableInit()
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
-        self.driveController = wpilib.XboxController(0)
+        self.shooterSub = team3200.subsystems.shooter.ShooterSub()
+        self.driveController = wpilib.XboxController(self.map.controllerMap.driverController['controllerId'])
+        self.auxController = wpilib.XboxController(self.map.controllerMap.auxController['controllerId'])
         self.controllerInit()
         self.healthMonitor = team3200.subsystems.healthMonitor.HealthMonitor()
     
@@ -39,7 +43,7 @@ class MyRobot(commandbased.CommandBasedRobot):
     def controllerInit(self):
         self.driveController = wpilib.XboxController(self.map.controllerMap.driverController['controllerId'])
         self.auxController = wpilib.XboxController(self.map.controllerMap.auxController['controllerId'])
-        self.lightButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['ledToggle'])
+        self.lightButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['ledToggle'])
         self.lightButton.whenPressed(Lights())
         self.leftButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['leftButton'])
         self.leftButton.whileActive(LeftTurn(self.dtSub))
@@ -47,6 +51,8 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.rightButton.whileHeld(RightTurn(self.dtSub))
         self.alignButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['alignButton'])
         self.alignButton.whenPressed(AlignButton(self.dtSub))
+        self.intakeButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['intakeButton'])
+        self.intakeButton.whenPressed(IntakeButton(self.shooterSub))
 
     def driveInit(self):
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
