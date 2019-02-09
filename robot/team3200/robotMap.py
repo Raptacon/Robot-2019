@@ -1,6 +1,9 @@
 
 
 import hal
+import ctre 
+from ctre import WPI_TalonSRX
+
 class RobotMap():
     """
     Robot map gathers all the hard coded values needed to interface with 
@@ -24,7 +27,7 @@ class CANMap():
         rampRate = .2
         
         pid = None
-        pid = createPidVelDict(9000,0.0,0,0,WPI_TalonSRX.ControlMode.Velocity, ctre.FeedbackDevice.QuadEncoder, False)
+        pid = createPidVelDict(2500,0.0,0,0,WPI_TalonSRX.ControlMode.Velocity, ctre.FeedbackDevice.QuadEncoder, True)
         
         self.shooterMotors = {}
         self.intakeMotors = {}
@@ -55,9 +58,9 @@ class ControllerMap():
         driverController['controllerId'] = 0
         auxController['controllerId'] = 1
         
-        driverController['leftTread'] = 3
+        driverController['leftTread'] = 1
         if hal.isSimulation():
-            driverController['rightTread'] = 1
+            driverController['rightTread'] = 3
         else:
             driverController['rightTread'] = 5
         
@@ -75,4 +78,4 @@ def createPidVelDict(_100msVelCount, kP, kI, kD, controlType, feedbackType, sens
     kF = 1023.0 / _100msVelCount
     if not kInput:
         kInput = _100msVelCount
-    return {'kF':kF, 'kP':kP, 'kI':kI, 'kD':kD, 'kInput':kInput, 'controlType':controlType, 'feedbackType':feedbackType, 'sensorPhase':False}
+    return {'kF':kF, 'kP':kP, 'kI':kI, 'kD':kD, 'kInput':kInput, 'controlType':controlType, 'feedbackType':feedbackType, 'sensorPhase':sensorPhase}
