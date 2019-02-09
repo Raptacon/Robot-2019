@@ -22,10 +22,14 @@ class CANMap():
         holds mappings to all the motors in the robot
         '''
         rampRate = .2
+        
         pid = None
+        pid = createPidVelDict(9000,0.0,0,0,WPI_TalonSRX.ControlMode.Velocity, ctre.FeedbackDevice.QuadEncoder, False)
+        
         self.shooterMotors = {}
         self.intakeMotors = {}
         driveMotors = {}
+        
         '''The code below is an example of code for the SparkMax motor controllers'''
         #driveMotors['leftMotor'] = {'channel':0, 'inverted':True, 'type':'SparkMax', 'pid':pid, 'motorType':MotorType.kBrushless}
         '''The code below is for controlling TalonSRX motor controllers as well as their followers'''
@@ -66,3 +70,9 @@ class ControllerMap():
         self.driverController = driverController
         self.auxController = auxController
         
+        
+def createPidVelDict(_100msVelCount, kP, kI, kD, controlType, feedbackType, sensorPhase = False, kInput = None):
+    kF = 1023.0 / _100msVelCount
+    if not kInput:
+        kInput = _100msVelCount
+    return {'kF':kF, 'kP':kP, 'kI':kI, 'kD':kD, 'kInput':kInput, 'controlType':controlType, 'feedbackType':feedbackType, 'sensorPhase':False}
