@@ -22,24 +22,28 @@ class CANMap():
         holds mappings to all the motors in the robot
         '''
         rampRate = .2
+        #rotRampRate = .2
         pid = None
-        self.shooterMotors = {}
-        self.intakeMotors = {}
+        lifterMotors = {}
         driveMotors = {}
         '''The code below is an example of code for the SparkMax motor controllers'''
-        #driveMotors['leftMotor'] = {'channel':0, 'inverted':True, 'type':'SparkMax', 'pid':pid, 'motorType':MotorType.kBrushless}
+        #shooterMotors['RotMotor'] = {'channel':4, 'inverted':False, 'type':'SparkMax', 'pid':rotPid, 'motorType':MotorType.kBrushless}
         '''The code below is for controlling TalonSRX motor controllers as well as their followers'''
         driveMotors['leftMotor'] = {'channel':0, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         driveMotors['leftFollower'] = {'channel':3, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':0, "rampRate":rampRate}
         driveMotors['rightMotor'] = {'channel':1, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         driveMotors['rightFollower'] = {'channel':2, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':1, "rampRate":rampRate}
         
-        self.driveMotors = driveMotors
+        lifterMotors['liftMotor'] = {'channel':4, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
+        lifterMotors['roller'] = {'channel':5, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         
+        self.driveMotors = driveMotors
+        self.lifterMotors = lifterMotors
 
 class PneumaticsMap():
     def __init__(self):
-        pass
+        self.forwardChannel = 0
+        self.reverseChannel = 1
     
 class ControllerMap():
     def __init__(self):
@@ -57,10 +61,16 @@ class ControllerMap():
         else:
             driverController['rightTread'] = 5
         
-        auxController['ledToggle'] = wpilib.XboxController.Button.kX
+        driverController['ledToggle'] = wpilib.XboxController.Button.kX
         driverController['alignButton'] = wpilib.XboxController.Button.kA
         driverController['leftButton'] = wpilib.XboxController.Button.kBumperLeft
         driverController['rightButton'] = wpilib.XboxController.Button.kBumperRight
+        
+        auxController['LowerButton'] = wpilib.XboxController.Button.kBumperLeft
+        auxController['RaiseButton'] = wpilib.XboxController.Button.kBumperRight
+        auxController['PistonButton'] = wpilib.XboxController.Button.kX
+        auxController['RollerIO'] = wpilib.XboxController.Button.kA
+        auxController['RollerToggle'] = wpilib.XboxController.Button.kB
         
         driverController['voltRumble'] = 8.0
         
