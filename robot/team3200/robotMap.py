@@ -11,6 +11,7 @@ class RobotMap():
         self.motorsMap = CANMap()
         self.pneumaticsMap = PneumaticsMap()
         self.controllerMap = ControllerMap()
+        self.networkTableMap = NetworkTableMap()
 
         
         
@@ -81,3 +82,14 @@ class ControllerMap():
         self.driverController = driverController
         self.auxController = auxController
         
+class NetworkTableMap():
+    def __init__(self):
+        '''
+        Create and set default variables for the network tables, defaulted to if we don't create a different file with our saved variables
+        '''
+        self.networkTableValues = { }
+        
+        #To create a new network value, create it with the format of "networkTableValues["NameOfValue"] = Value
+        self.networkTableValues["ControllerSensitivity"] = -1
+        self.networkTableValues["VoltageRumbleBeginsAt"] = 0 #no idea about what value might need to be
+    

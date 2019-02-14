@@ -33,14 +33,18 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.auxController = wpilib.XboxController(self.map.controllerMap.auxController['controllerId'])
 
         self.controllerInit()
+
         self.healthMonitor = team3200.subsystems.healthMonitor.HealthMonitor()
     
     def networkTableInit(self):
         '''This sets up the network tables and adds a variable called sensitivity'''
         NetworkTables.initialize(server = 'roborio-3200-frc.local')
+        self.liveWindowTable = NetworkTables.getTable('Custom')
         
-        self.liveWindowTable = NetworkTables.getTable('LiveWindow')
-        self.liveWindowTable.putNumber('Sensitivity', -1)
+        for k, v in self.map.networkTableMap.networkTableValues.items():
+            #K for key, V for value
+            self.liveWindowTable.putNumber(k, v)
+        
         
 
     def controllerInit(self):
@@ -71,8 +75,17 @@ class MyRobot(commandbased.CommandBasedRobot):
 
     def driveInit(self):
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
-    def exit(retval):
-        pass
+        sensName = "ControllerSensitivity"
+        if sensName in self.map.networkTableMap.networkTableValues:
+            
+            sensEntry = self.liveWindowTable.getEntry(sensName)
+            jDrive = team3200.commands.joystickDrive.JoystickDrive(sensEntry)
+            self.dtSub.setDefaultCommand(jDrive)
+        
+def exit(retval):
+    pass
+
+
 if __name__ == '__main__':
     try:
         #patch no exit error if not running on robot
@@ -97,3 +110,4 @@ if __name__ == '__main__':
             print("Failed to patch runtime. Error", err)
     
     wpilib.run(MyRobot,physics_enabled=True)
+
