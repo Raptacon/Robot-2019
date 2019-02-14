@@ -5,7 +5,6 @@ Created on Fri Feb  8 18:00:27 2019
 @author: Micro
 """
 from enum import IntEnum
-import time
 
 class Level(IntEnum):
 	kFloor = 0
@@ -19,6 +18,7 @@ class Level(IntEnum):
 
 from wpilib.command.subsystem import Subsystem
 import team3200
+import wpilib
 
 class LifterSub(Subsystem):
 	def __init__(self):
@@ -33,21 +33,23 @@ class LifterSub(Subsystem):
 			print(key, motorDesc, self.lifterMotors[key])
 			
 	
+	def StopLifter(self):
+		print(self.level)
+	
 	def RaiseLevel(self):
-		self.lifterMotors['liftMotor'].set(.5)
-		for i in range(0, 5):
-			print(i)
-		self.lifterMotors['liftMotor'].set(0)
 		if self.level < 7:
-			++self.level
+			self.lifterMotors['liftMotor'].set(.1)
+			wpilib.Timer.delay(5)
+			self.lifterMotors['liftMotor'].set(0)
+			self.level = self.level + 1
 
 	def LowerLevel(self):
-		self.lifterMotors['liftMotor'].set(-.3)
-		for i in range(0, 5):
-			print(i)
-		self.lifterMotors['liftMotor'].set(0)
 		if self.level > 0:
-			--self.level
+			self.lifterMotors['liftMotor'].set(-.1)
+			wpilib.Timer.delay(5)
+			self.lifterMotors['liftMotor'].set(0)
+			self.level = self.level - 1
+			
 			
 	def ToggleRoller(self):
 		self.isIntake = not self.isIntake
@@ -59,3 +61,19 @@ class LifterSub(Subsystem):
 			self.lifterMotors['roller'].set(speed)
 		else:
 			self.lifterMotors['roller'].set(0)
+			
+from wpilib import DoubleSolenoid
+class PlatePiston(Subsystem):
+	def __init__(self):
+		super().__init__("Plate Piston")
+		self.robot = team3200.getRobot()
+		self.map = self.robot.map.pneumaticsMap
+		self.platePiston = DoubleSolenoid(self.map.pcmCan, self.map.forwardChannel, self.map.reverseChannel)
+		
+	def Activate(self):
+		self.platePiston.set(DoubleSolenoid.Value.kForward)
+		print("Piston Forwards")
+		wpilib.Timer.delay(5)
+		self.platePiston.set(DoubleSolenoid.Value.kReverse)
+		print("Piston Backwards")
+		wpilib.Timer.delay(5)

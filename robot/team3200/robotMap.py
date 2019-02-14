@@ -35,13 +35,15 @@ class CANMap():
         driveMotors['rightFollower'] = {'channel':2, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':1, "rampRate":rampRate}
         
         lifterMotors['liftMotor'] = {'channel':4, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
-        lifterMotors['roller'] = {'channel':5, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
+        lifterMotors['liftMotor2'] = {'channel':5, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':4, "rampRate":rampRate}
+        lifterMotors['roller'] = {'channel':6, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         
         self.driveMotors = driveMotors
         self.lifterMotors = lifterMotors
 
 class PneumaticsMap():
     def __init__(self):
+        self.pcmCan = 1
         self.forwardChannel = 0
         self.reverseChannel = 1
     
@@ -68,6 +70,7 @@ class ControllerMap():
         
         auxController['LowerButton'] = wpilib.XboxController.Button.kBumperLeft
         auxController['RaiseButton'] = wpilib.XboxController.Button.kBumperRight
+        auxController['StopButton'] = wpilib.XboxController.Button.kY
         auxController['PistonButton'] = wpilib.XboxController.Button.kX
         auxController['RollerIO'] = wpilib.XboxController.Button.kA
         auxController['RollerToggle'] = wpilib.XboxController.Button.kB
