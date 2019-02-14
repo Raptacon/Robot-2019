@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from wpilib.command import Command
+import team3200
 class JoystickDrive(Command):
     """
     This command will read the joystick values that are used
@@ -13,10 +14,9 @@ class JoystickDrive(Command):
         self.requires(self.robot.dtSub)
         
         self.sensitivity = -1
-        if type(ntSensitivity) != None:    
+        if ntSensitivity != None:    
             self.sensitivity = ntSensitivity.getNumber(-1)
-        
-        ntSensitivity.addListener(self.networkTableSensListener, 0b010100) #trying to properly deal with bitmasks or whatever. should use flags from https://robotpy.readthedocs.io/projects/pynetworktables/en/latest/api.html#networktables.NetworkTablesInstance.NotifyFlags
+            ntSensitivity.addListener(self.networkTableSensListener, 0b010100) #trying to properly deal with bitmasks or whatever. should use flags from https://robotpy.readthedocs.io/projects/pynetworktables/en/latest/api.html#networktables.NetworkTablesInstance.NotifyFlags
 
     def setSensitivity(newSens, self):
         self.sensitvity = newSens
