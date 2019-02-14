@@ -4,7 +4,6 @@ import rev
 import ctre 
 
 
-
 def createMotor(motorDescp):
     #Might want more motor types for set up
     '''This is where all motors are set up'''

@@ -9,9 +9,13 @@ from networktables import NetworkTables
 from wpilib.buttons.joystickbutton import JoystickButton
 import commandbased
 from team3200.commands.lights import Lights
-from team3200.commands.lights import ExampleButton
+
+from team3200.commands.align import RightTurn
+from team3200.commands.align import LeftTurn
 from team3200.commands.align import AlignButton
+from team3200.commands import lifterControl
 import team3200.subsystems.driveTrain
+import team3200.subsystems.lifter
 import team3200.subsystems.healthMonitor
 
 class MyRobot(commandbased.CommandBasedRobot):
@@ -22,7 +26,12 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.map = team3200.robotMap.RobotMap()
         self.networkTableInit()
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
-        self.driveController = wpilib.XboxController(0)
+
+        self.liftSub = team3200.subsystems.lifter.LifterSub()
+        self.pistonSub = team3200.subsystems.lifter.PlatePiston()
+        self.driveController = wpilib.XboxController(self.map.controllerMap.driverController['controllerId'])
+        self.auxController = wpilib.XboxController(self.map.controllerMap.auxController['controllerId'])
+
         self.controllerInit()
         self.healthMonitor = team3200.subsystems.healthMonitor.HealthMonitor()
     
@@ -37,12 +46,28 @@ class MyRobot(commandbased.CommandBasedRobot):
     def controllerInit(self):
         self.driveController = wpilib.XboxController(self.map.controllerMap.driverController['controllerId'])
         self.auxController = wpilib.XboxController(self.map.controllerMap.auxController['controllerId'])
-        self.lightButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['ledToggle'])
+
+        self.lightButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['ledToggle'])
         self.lightButton.whenPressed(Lights())
-        self.exampleButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['exampleButton'])
-        self.exampleButton.whenPressed(ExampleButton())
-        self.alignButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['alignButton'])
-        self.alignButton.whenPressed(AlignButton())
+        self.leftButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['leftButton'])
+        self.leftButton.whileActive(LeftTurn(self.dtSub))
+        self.rightButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['rightButton'])
+        self.rightButton.whileHeld(RightTurn(self.dtSub))
+        self.alignButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['alignButton'])
+        self.alignButton.whenPressed(AlignButton(self.dtSub))
+        
+        self.raiseButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['RaiseButton'])
+        self.raiseButton.whenPressed(lifterControl.RaiseButton(self.liftSub))
+        self.lowerButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['LowerButton'])
+        self.lowerButton.whenPressed(lifterControl.LowerButton(self.liftSub))
+        self.stopButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['StopButton'])
+        self.stopButton.whenPressed(lifterControl.StopButton(self.liftSub))
+        self.pistonButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['PistonButton'])
+        self.pistonButton.whenPressed(lifterControl.PistonButton(self.pistonSub))
+        self.rollerIO = JoystickButton(self.auxController, self.map.controllerMap.auxController['RollerIO'])
+        self.rollerIO.whenPressed(lifterControl.RollerIO(self.liftSub))
+        self.rollerToggle = JoystickButton(self.auxController, self.map.controllerMap.auxController['RollerToggle'])
+        self.rollerToggle.whenPressed(lifterControl.RollerToggle(self.liftSub))
 
     def driveInit(self):
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
