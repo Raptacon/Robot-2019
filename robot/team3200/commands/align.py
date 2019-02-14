@@ -2,8 +2,9 @@
 """
 Created on Fri Feb  1 17:06:57 2019
 
-@author: Micro
+@author: Matthew McFarland
 """
+
 from wpilib.command import Command
 from wpilib.command import InstantCommand
 from networktables import NetworkTables
@@ -45,4 +46,3 @@ class AlignButton(InstantCommand):
                     '''Active when the target is to the right.'''
                     #print(self.tx)
                     self.dtSub.autoTurn(.5, -.5)
-            

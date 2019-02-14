@@ -59,10 +59,10 @@ class ControllerMap():
         
         driverController['leftTread'] = 1
         if hal.isSimulation():
-            driverController['rightTread'] = 3
+            driverController['rightTread'] = 1
         else:
             driverController['rightTread'] = 5
-        
+
         driverController['ledToggle'] = wpilib.XboxController.Button.kX
         driverController['alignButton'] = wpilib.XboxController.Button.kA
         driverController['leftButton'] = wpilib.XboxController.Button.kBumperLeft
@@ -74,6 +74,7 @@ class ControllerMap():
         auxController['PistonButton'] = wpilib.XboxController.Button.kX
         auxController['RollerIO'] = wpilib.XboxController.Button.kA
         auxController['RollerToggle'] = wpilib.XboxController.Button.kB
+
         
         driverController['voltRumble'] = 8.0
         
