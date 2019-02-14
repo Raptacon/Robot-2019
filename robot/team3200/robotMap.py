@@ -1,5 +1,5 @@
 
-
+import wpilib.xboxcontroller
 import hal
 class RobotMap():
     """
@@ -23,24 +23,30 @@ class CANMap():
         holds mappings to all the motors in the robot
         '''
         rampRate = .2
+        #rotRampRate = .2
         pid = None
-        self.shooterMotors = {}
-        self.intakeMotors = {}
+        lifterMotors = {}
         driveMotors = {}
         '''The code below is an example of code for the SparkMax motor controllers'''
-        #driveMotors['leftMotor'] = {'channel':0, 'inverted':True, 'type':'SparkMax', 'pid':pid, 'motorType':MotorType.kBrushless}
+        #shooterMotors['RotMotor'] = {'channel':4, 'inverted':False, 'type':'SparkMax', 'pid':rotPid, 'motorType':MotorType.kBrushless}
         '''The code below is for controlling TalonSRX motor controllers as well as their followers'''
         driveMotors['leftMotor'] = {'channel':0, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         driveMotors['leftFollower'] = {'channel':3, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':0, "rampRate":rampRate}
         driveMotors['rightMotor'] = {'channel':1, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         driveMotors['rightFollower'] = {'channel':2, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':1, "rampRate":rampRate}
         
-        self.driveMotors = driveMotors
+        lifterMotors['liftMotor'] = {'channel':4, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
+        lifterMotors['liftMotor2'] = {'channel':5, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':4, "rampRate":rampRate}
+        lifterMotors['roller'] = {'channel':6, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         
+        self.driveMotors = driveMotors
+        self.lifterMotors = lifterMotors
 
 class PneumaticsMap():
     def __init__(self):
-        pass
+        self.pcmCan = 1
+        self.forwardChannel = 0
+        self.reverseChannel = 1
     
 class ControllerMap():
     def __init__(self):
@@ -50,16 +56,26 @@ class ControllerMap():
         auxController = {}
         
         driverController['controllerId'] = 0
+        auxController['controllerId'] = 1
+        
         driverController['leftTread'] = 1
-        
-        
         if hal.isSimulation():
-            driverController['rightTread'] = 3
+            driverController['rightTread'] = 1
         else:
             driverController['rightTread'] = 5
+
+        driverController['ledToggle'] = wpilib.XboxController.Button.kX
+        driverController['alignButton'] = wpilib.XboxController.Button.kA
+        driverController['leftButton'] = wpilib.XboxController.Button.kBumperLeft
+        driverController['rightButton'] = wpilib.XboxController.Button.kBumperRight
         
-        driverController['ledToggle'] = 3
-        driverController['exampleButton'] = 6
+        auxController['LowerButton'] = wpilib.XboxController.Button.kBumperLeft
+        auxController['RaiseButton'] = wpilib.XboxController.Button.kBumperRight
+        auxController['StopButton'] = wpilib.XboxController.Button.kY
+        auxController['PistonButton'] = wpilib.XboxController.Button.kX
+        auxController['RollerIO'] = wpilib.XboxController.Button.kA
+        auxController['RollerToggle'] = wpilib.XboxController.Button.kB
+
         
         driverController['voltRumble'] = 8.0
         
