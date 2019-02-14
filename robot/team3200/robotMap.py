@@ -60,7 +60,7 @@ class ControllerMap():
         
         driverController['leftTread'] = 1
         if hal.isSimulation():
-            driverController['rightTread'] = 1
+            driverController['rightTread'] = 3
         else:
             driverController['rightTread'] = 5
 

@@ -39,14 +39,14 @@ class LifterSub(Subsystem):
 	def RaiseLevel(self):
 		if self.level < 7:
 			self.lifterMotors['liftMotor'].set(.1)
-			wpilib.Timer.delay(5)
+			wpilib.Timer.delay(1)
 			self.lifterMotors['liftMotor'].set(0)
 			self.level = self.level + 1
 
 	def LowerLevel(self):
 		if self.level > 0:
 			self.lifterMotors['liftMotor'].set(-.1)
-			wpilib.Timer.delay(5)
+			wpilib.Timer.delay(1)
 			self.lifterMotors['liftMotor'].set(0)
 			self.level = self.level - 1
 			
@@ -73,7 +73,7 @@ class PlatePiston(Subsystem):
 	def Activate(self):
 		self.platePiston.set(DoubleSolenoid.Value.kForward)
 		print("Piston Forwards")
-		wpilib.Timer.delay(5)
+		wpilib.Timer.delay(1)
 		self.platePiston.set(DoubleSolenoid.Value.kReverse)
 		print("Piston Backwards")
-		wpilib.Timer.delay(5)
+		wpilib.Timer.delay(1)
