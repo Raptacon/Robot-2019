@@ -10,8 +10,8 @@ if voltage gets too low.
 class HealthMonitor(Subsystem):
     def __init__(self):
         super().__init__("HMS")
-        self.warnVoltage = 8
-        self.critVoltage = 7
+        self.warnVoltage = 11
+        self.critVoltage = 10
         self.robot = team3200.getRobot()
         self.count = 0
         self.pdp = wpilib.PowerDistributionPanel()
@@ -19,7 +19,7 @@ class HealthMonitor(Subsystem):
         self.minVoltage = voltage
     
     def rumbleOnLimits(self):
-        if ( (self.warnVoltage > 0 or self.criVoltage > 0) and self.count < 1 ):
+        if ( (self.warnVoltage > 0 or self.criVoltage > 0)):
             self.volts = self.pdp.getVoltage()
             print (self.volts)
             if (self.volts > self.warnVoltage):
@@ -36,7 +36,8 @@ class HealthMonitor(Subsystem):
             else:
                 pass
                 
-        self.count += 1
+            self.count += 1
+            
     def setRumble(self, value):
         self.robot.driveController.setRumble(wpilib.Joystick.RumbleType.kLeftRumble, value)
         self.robot.driveController.setRumble(wpilib.Joystick.RumbleType.kRightRumble, value)

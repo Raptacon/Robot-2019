@@ -27,7 +27,7 @@ class CANMap():
         rampRate = .2
         
         pid = None
-        pid = createPidVelDict(2500,0.0,0,0,WPI_TalonSRX.ControlMode.Velocity, ctre.FeedbackDevice.QuadEncoder, True)
+        pid = createPidVelDict(550,0.0,0,0,WPI_TalonSRX.ControlMode.Velocity, ctre.FeedbackDevice.QuadEncoder, True)
         
         self.shooterMotors = {}
         self.intakeMotors = {}

@@ -29,7 +29,12 @@ class DriveTrainSub(Subsystem):
         self.driveTrain = dd.DifferentialDrive(self.driveMotors['leftMotor'], self.driveMotors['rightMotor'])
         
     def setTankDrive(self, leftSide, rightSide):
-        self.driveTrain.tankDrive(leftSide, rightSide)
+        #print("FL Error:", self.driveMotors['leftMotor'].getClosedLoopError() , 
+        #      ":",self.driveMotors['leftMotor'].getClosedLoopTarget(),
+        #      "FR Error:", self.driveMotors['rightMotor'].getClosedLoopError(),
+        #      ":",self.driveMotors['leftMotor'].getClosedLoopTarget(),
+        #      )
+        self.driveTrain.tankDrive(leftSide, rightSide, False)
         
     def setArcadeDrive(self, speed, rot):
         self.driveTrain.arcadeDrive(speed, rot)

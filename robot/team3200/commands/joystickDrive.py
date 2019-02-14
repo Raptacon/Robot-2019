@@ -25,4 +25,8 @@ class JoystickDrive(Command):
         leftSide = dc.getRawAxis(self.robot.map.controllerMap.driverController['leftTread']) * self.sensitivity
         rightSide = dc.getRawAxis(self.robot.map.controllerMap.driverController['rightTread']) * self.sensitivity
         
-        self.robot.dtSub.setTankDrive(leftSide,rightSide)
+        
+        if(self.robot.isTest()):
+            pass
+        else:
+            self.robot.dtSub.setTankDrive(leftSide,rightSide)

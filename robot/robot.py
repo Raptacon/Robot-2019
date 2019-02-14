@@ -21,7 +21,7 @@ class MyRobot(commandbased.CommandBasedRobot):
         team3200.getRobot = lambda x=0:self
         self.map = team3200.robotMap.RobotMap()
         self.networkTableInit()
-        self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
+        self.driveInit();
         self.driveController = wpilib.XboxController(0)
         self.controllerInit()
         self.healthMonitor = team3200.subsystems.healthMonitor.HealthMonitor()
@@ -46,8 +46,16 @@ class MyRobot(commandbased.CommandBasedRobot):
 
     def driveInit(self):
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
-    def exit(retval):
-        pass
+
+    
+    def testPeriodic(self):
+        while(self.isTest()):
+            self.dtSub.setTankDrive(.25, .25)
+            
+
+
+def exit(retval):
+    pass           
 if __name__ == '__main__':
     try:
         #patch no exit error if not running on robot

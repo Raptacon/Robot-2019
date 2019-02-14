@@ -10,4 +10,5 @@ class VoltageMonitor(command.Command):
         self.requires(self.robot.healthMonitor)
     
     def execute(self):
+        print("CHeck voltage")
         self.robot.healthMonitor.rumbleOnLimits()
