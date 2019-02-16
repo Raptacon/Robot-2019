@@ -34,7 +34,7 @@ class MyRobot(commandbased.CommandBasedRobot):
 
         self.controllerInit()
 
-        self.healthMonitor = team3200.subsystems.healthMonitor.HealthMonitor()
+        #self.healthMonitor = team3200.subsystems.healthMonitor.HealthMonitor()
     
     def networkTableInit(self):
         '''This sets up the network tables and adds a variable called sensitivity'''
