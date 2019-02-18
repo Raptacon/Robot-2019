@@ -13,6 +13,7 @@ from team3200.commands.lights import Lights
 from team3200.commands.align import RightTurn
 from team3200.commands.align import LeftTurn
 from team3200.commands.align import AlignButton
+from team3200.commands.align import DriveStraight
 from team3200.commands import lifterControl
 import team3200.subsystems.driveTrain
 import team3200.subsystems.lifter
@@ -54,11 +55,13 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.lightButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['ledToggle'])
         self.lightButton.whenPressed(Lights())
         self.leftButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['leftButton'])
-        self.leftButton.whileActive(LeftTurn(self.dtSub))
+        self.leftButton.whileHeld(LeftTurn(self.dtSub))
         self.rightButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['rightButton'])
         self.rightButton.whileHeld(RightTurn(self.dtSub))
         self.alignButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['alignButton'])
         self.alignButton.whenPressed(AlignButton(self.dtSub))
+        self.straightButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['straightButton'])
+        self.straightButton.whileHeld(DriveStraight(self.dtSub))
         
         self.raiseButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['RaiseButton'])
         self.raiseButton.whenPressed(lifterControl.RaiseButton(self.liftSub))

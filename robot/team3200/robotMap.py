@@ -30,8 +30,8 @@ class CANMap():
         '''The code below is an example of code for the SparkMax motor controllers'''
         #shooterMotors['RotMotor'] = {'channel':4, 'inverted':False, 'type':'SparkMax', 'pid':rotPid, 'motorType':MotorType.kBrushless}
         '''The code below is for controlling TalonSRX motor controllers as well as their followers'''
-        driveMotors['leftMotor'] = {'channel':0, 'inverted':True, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
-        driveMotors['leftFollower'] = {'channel':3, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':0, "rampRate":rampRate}
+        driveMotors['leftMotor'] = {'channel':0, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
+        driveMotors['leftFollower'] = {'channel':3, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':0, "rampRate":rampRate}
         driveMotors['rightMotor'] = {'channel':1, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         driveMotors['rightFollower'] = {'channel':2, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':1, "rampRate":rampRate}
         
@@ -44,7 +44,7 @@ class CANMap():
 
 class PneumaticsMap():
     def __init__(self):
-        self.pcmCan = 1
+        self.pcmCan = 0
         self.forwardChannel = 0
         self.reverseChannel = 1
     
@@ -68,6 +68,7 @@ class ControllerMap():
         driverController['alignButton'] = wpilib.XboxController.Button.kA
         driverController['leftButton'] = wpilib.XboxController.Button.kBumperLeft
         driverController['rightButton'] = wpilib.XboxController.Button.kBumperRight
+        driverController['straightButton'] = wpilib.XboxController.Button.kY
         
         auxController['LowerButton'] = wpilib.XboxController.Button.kBumperLeft
         auxController['RaiseButton'] = wpilib.XboxController.Button.kBumperRight

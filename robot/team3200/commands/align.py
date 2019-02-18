@@ -46,3 +46,10 @@ class AlignButton(InstantCommand):
                     '''Active when the target is to the right.'''
                     #print(self.tx)
                     self.dtSub.autoTurn(.5, -.5)
+class DriveStraight(Command):
+    def __init__(self, dtSub):
+        super().__init__("Right Turn")
+        self.dtSub = dtSub
+        
+    def execute(self):
+        self.dtSub.autoTurn(.5, .5)

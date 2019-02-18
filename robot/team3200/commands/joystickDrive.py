@@ -13,7 +13,7 @@ class JoystickDrive(Command):
         self.robot = team3200.getRobot()
         self.requires(self.robot.dtSub)
         
-        self.sensitivity = -1
+        self.sensitivity = -.7
         if ntSensitivity != None:    
             self.sensitivity = ntSensitivity.getNumber(-1)
             ntSensitivity.addListener(self.networkTableSensListener, 0b010100) #trying to properly deal with bitmasks or whatever. should use flags from https://robotpy.readthedocs.io/projects/pynetworktables/en/latest/api.html#networktables.NetworkTablesInstance.NotifyFlags
