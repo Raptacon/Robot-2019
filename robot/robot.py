@@ -35,7 +35,7 @@ class MyRobot(commandbased.CommandBasedRobot):
 
         self.controllerInit()
 
-        #self.healthMonitor = team3200.subsystems.healthMonitor.HealthMonitor()
+        self.healthMonitor = team3200.subsystems.healthMonitor.HealthMonitor()
     
     def networkTableInit(self):
         '''This sets up the network tables and adds a variable called sensitivity'''
@@ -65,10 +65,10 @@ class MyRobot(commandbased.CommandBasedRobot):
         
         self.raiseButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['RaiseButton'])
         self.raiseButton.whenPressed(lifterControl.RaiseButton(self.liftSub))
+        self.raiseButton.whenReleased(lifterControl.StopButton(self.liftSub))
         self.lowerButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['LowerButton'])
         self.lowerButton.whenPressed(lifterControl.LowerButton(self.liftSub))
-        self.stopButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['StopButton'])
-        self.stopButton.whenPressed(lifterControl.StopButton(self.liftSub))
+        self.lowerButton.whenReleased(lifterControl.StopButton(self.liftSub))
         self.pistonButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['PistonButton'])
         self.pistonButton.whenPressed(lifterControl.PistonButton(self.pistonSub))
         self.rollerIO = JoystickButton(self.auxController, self.map.controllerMap.auxController['RollerIO'])

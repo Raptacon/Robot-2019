@@ -26,6 +26,7 @@ class LifterSub(Subsystem):
         self.robot = team3200.getRobot()
         self.map = self.robot.map
         self.level = 2
+        self.acc = .6
         self.intakeSpd = 1
         self.lifterMotors = {}
         for key, motorDesc in self.map.motorsMap.lifterMotors.items():
@@ -34,27 +35,21 @@ class LifterSub(Subsystem):
             
     
     def StopLifter(self):
-        print(self.level)
+        self.lifterMotors['liftMotor'].set(0)
     
     def RaiseLevel(self):
         if self.level < Level.kHighBall:
-            self.voltage = 60
-            #for x in range(0, self.voltage, 30):
-            self.lifterMotors['liftMotor'].set(.6)
-            wpilib.Timer.delay(.75)
-            #for x in range(self.voltage, 0, 10):
-            self.lifterMotors['liftMotor'].set(0)
-            self.level = self.level #+ 1
+            #self.voltage = 60
+            self.lifterMotors['liftMotor'].set(self.acc)
+            #wpilib.Timer.delay(.75)
+            #self.lifterMotors['liftMotor'].set(0)
 
     def LowerLevel(self):
         if self.level > Level.kFloor:
-            self.voltage = -60
-            #for x in range(0, self.voltage, 30):
-            self.lifterMotors['liftMotor'].set(-.6)
-            wpilib.Timer.delay(.4)
-            #for x in range(self.voltage, 0, 10):
-            self.lifterMotors['liftMotor'].set(0)
-            self.level = self.level #- 1
+            #self.voltage = -60
+            self.lifterMotors['liftMotor'].set(-self.acc)
+            #wpilib.Timer.delay(.4)
+            #self.lifterMotors['liftMotor'].set(0)
             
             
     def ToggleRoller(self):
