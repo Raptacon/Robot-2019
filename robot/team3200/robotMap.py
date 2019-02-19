@@ -64,13 +64,13 @@ class ControllerMap():
             driverController['rightTread'] = 3
         else:
             driverController['rightTread'] = 5
-
+        '''Create buttons for the drive controller'''
         driverController['ledToggle'] = wpilib.XboxController.Button.kX
         driverController['alignButton'] = wpilib.XboxController.Button.kA
         driverController['leftButton'] = wpilib.XboxController.Button.kBumperLeft
         driverController['rightButton'] = wpilib.XboxController.Button.kBumperRight
         driverController['straightButton'] = wpilib.XboxController.Button.kY
-        
+        '''Create buttons for the aux controller'''
         auxController['LowerButton'] = wpilib.XboxController.Button.kBumperLeft
         auxController['RaiseButton'] = wpilib.XboxController.Button.kBumperRight
         auxController['StopButton'] = wpilib.XboxController.Button.kY

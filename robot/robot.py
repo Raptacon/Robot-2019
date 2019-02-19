@@ -50,7 +50,7 @@ class MyRobot(commandbased.CommandBasedRobot):
     def controllerInit(self):
         self.driveController = wpilib.XboxController(self.map.controllerMap.driverController['controllerId'])
         self.auxController = wpilib.XboxController(self.map.controllerMap.auxController['controllerId'])
-
+        '''Buttons for the Drive Controller'''
         self.lightButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['ledToggle'])
         self.lightButton.whenPressed(Lights())
         self.leftButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['leftButton'])
@@ -61,7 +61,7 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.alignButton.whenPressed(AlignButton(self.dtSub))
         self.straightButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['straightButton'])
         self.straightButton.whileHeld(DriveStraight(self.dtSub))
-        
+        '''Buttons for the Auxiliary Controller'''
         self.raiseButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['RaiseButton'])
         self.raiseButton.whenPressed(lifterControl.RaiseButton(self.liftSub))
         self.raiseButton.whenReleased(lifterControl.StopButton(self.liftSub))

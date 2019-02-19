@@ -8,7 +8,7 @@ Created on Fri Feb  1 17:06:57 2019
 from wpilib.command import Command
 from wpilib.command import InstantCommand
 from networktables import NetworkTables
-from team3200.commands.joystickDrive import JoystickDrive
+
 class LeftTurn(Command):
     def __init__(self, dtSub):
         super().__init__("Left Turn")

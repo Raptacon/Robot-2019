@@ -2,7 +2,7 @@
 """
 Created on Fri Feb  8 18:00:27 2019
 
-@author: Micro
+@author: Matthew McFarland
 """
 from enum import IntEnum
 
@@ -18,7 +18,6 @@ class Level(IntEnum):
 
 from wpilib.command.subsystem import Subsystem
 import team3200
-import wpilib
 
 class LifterSub(Subsystem):
     def __init__(self):
@@ -75,6 +74,7 @@ class PlatePiston(Subsystem):
         self.platePiston = DoubleSolenoid(self.map.pcmCan, self.map.forwardChannel, self.map.reverseChannel)
         
     def Activate(self):
+        '''Extends the piston if it is destended and vice versa.'''
         if self.platePiston.get() == DoubleSolenoid.Value.kReverse:
             self.platePiston.set(DoubleSolenoid.Value.kForward)
             print("Piston Forwards")

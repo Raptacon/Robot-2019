@@ -2,7 +2,7 @@
 """
 Created on Sat Feb  9 12:00:38 2019
 
-@author: Micro
+@author: Matthew McFarland
 """
 from wpilib.command import InstantCommand
 from wpilib.command import Command
