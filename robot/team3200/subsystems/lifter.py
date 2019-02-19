@@ -35,9 +35,11 @@ class LifterSub(Subsystem):
             
     
     def StopLifter(self):
+        '''Stops the lifter'''
         self.lifterMotors['liftMotor'].set(0)
     
     def RaiseLevel(self):
+        '''Raises the lifter'''
         if self.level < Level.kHighBall:
             #self.voltage = 60
             self.lifterMotors['liftMotor'].set(self.acc)
@@ -45,6 +47,7 @@ class LifterSub(Subsystem):
             #self.lifterMotors['liftMotor'].set(0)
 
     def LowerLevel(self):
+        '''Lowers the lifter'''
         if self.level > Level.kFloor:
             #self.voltage = -60
             self.lifterMotors['liftMotor'].set(-self.acc)
@@ -53,9 +56,11 @@ class LifterSub(Subsystem):
             
             
     def ToggleRoller(self):
+        '''Toggles the roller's direction'''
         self.intakeSpd = -self.intakeSpd
         
     def RunRoller(self, speed):
+        '''Toggles the roller on/off.'''
         if(self.lifterMotors['roller'].get() == 0):
             self.lifterMotors['roller'].set(speed * self.intakeSpd)
         else:
@@ -74,7 +79,7 @@ class PlatePiston(Subsystem):
             self.platePiston.set(DoubleSolenoid.Value.kForward)
             print("Piston Forwards")
         #wpilib.Timer.delay(1)
-        if self.platePiston.get() == DoubleSolenoid.Value.kForward:
+        elif self.platePiston.get() == DoubleSolenoid.Value.kForward:
             self.platePiston.set(DoubleSolenoid.Value.kReverse)
             print("Piston Backwards")
-        wpilib.Timer.delay(1)
+        #wpilib.Timer.delay(1)
