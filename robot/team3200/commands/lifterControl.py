@@ -38,6 +38,7 @@ class PistonButton(InstantCommand):
         self.pistonSub = pistonSub
         
     def execute(self):
+        print("Piston Button Pressed")
         self.pistonSub.Activate()
 
 class StopButton(InstantCommand):
