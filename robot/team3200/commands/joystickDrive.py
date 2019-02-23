@@ -37,3 +37,4 @@ class JoystickDrive(Command):
             self.robot.dtSub.setTankDrive(leftSide,rightSide)
         elif not self.tank:
             self.robot.dtSub.setArcadeDrive(leftSide, leftRot)
+        

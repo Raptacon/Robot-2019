@@ -75,6 +75,7 @@ class PlatePiston(Subsystem):
         
     def Activate(self):
         '''Extends the piston if it is destended and vice versa.'''
+        print("Piston Activated")
         if self.platePiston.get() == DoubleSolenoid.Value.kReverse:
             self.platePiston.set(DoubleSolenoid.Value.kForward)
             print("Piston Forwards")
@@ -82,4 +83,6 @@ class PlatePiston(Subsystem):
         elif self.platePiston.get() == DoubleSolenoid.Value.kForward:
             self.platePiston.set(DoubleSolenoid.Value.kReverse)
             print("Piston Backwards")
+        else:
+            self.platePiston.set(DoubleSolenoid.Value.kForward)
         #wpilib.Timer.delay(1)
