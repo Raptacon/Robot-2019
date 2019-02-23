@@ -19,6 +19,7 @@ def createMotor(motorDescp):
         motor =ctre.wpi_talonsrx.WPI_TalonSRX(motorDescp['channel'])
         motor.set(ctre.wpi_talonsrx.ControlMode.Follower, motorDescp['masterChannel'])
         
+        
     elif motorDescp['type'] == 'SparkMax':
         '''This is where SparkMax motor controllers are set up'''
         motor = rev.CANSparkMax(motorDescp['channel'], motorDescp['motorType'])

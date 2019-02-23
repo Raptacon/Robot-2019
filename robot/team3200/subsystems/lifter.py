@@ -4,18 +4,7 @@ Created on Fri Feb  8 18:00:27 2019
 
 @author: Matthew McFarland
 """
-from enum import IntEnum
-
-class Level(IntEnum):
-    kFloor = 0
-    kLowPanel = 1
-    kLowBall = 2
-    kBallCargo = 3
-    kMidPanel = 4
-    kMidBall = 5
-    kHighPanel = 6
-    kHighBall = 7
-
+from ctre.talonsrx import TalonSRX
 from wpilib.command.subsystem import Subsystem
 import team3200
 
@@ -24,8 +13,8 @@ class LifterSub(Subsystem):
         super().__init__("LifterSub")
         self.robot = team3200.getRobot()
         self.map = self.robot.map
-        self.level = 2
-        self.acc = .6
+        self.level = 0
+        self.step = 2
         self.intakeSpd = 1
         self.lifterMotors = {}
         for key, motorDesc in self.map.motorsMap.lifterMotors.items():
@@ -39,20 +28,21 @@ class LifterSub(Subsystem):
     
     def RaiseLevel(self):
         '''Raises the lifter'''
-        if self.level < Level.kHighBall:
+        if self.level < 30:
             #self.voltage = 60
-            self.lifterMotors['liftMotor'].set(self.acc)
+            self.lifterMotors['liftMotor'].set(TalonSRX.ControlMode.Position, self.step)
             #wpilib.Timer.delay(.75)
             #self.lifterMotors['liftMotor'].set(0)
+            self.level = self.level + self.step
 
     def LowerLevel(self):
         '''Lowers the lifter'''
-        if self.level > Level.kFloor:
+        if self.level > 0:
             #self.voltage = -60
-            self.lifterMotors['liftMotor'].set(-self.acc)
+            self.lifterMotors['liftMotor'].set(TalonSRX.ControlMode.Position, -self.step)
             #wpilib.Timer.delay(.4)
             #self.lifterMotors['liftMotor'].set(0)
-            
+            self.level = self.level + self.step
             
     def ToggleRoller(self):
         '''Toggles the roller's direction'''
