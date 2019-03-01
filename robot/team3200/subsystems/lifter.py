@@ -28,6 +28,8 @@ class LifterSub(Subsystem):
     
     def RaiseLevel(self):
         '''Raises the lifter'''
+        self.lifterMotors['liftMotor'].set(1)
+        return
         if self.level < 30:
             #self.voltage = 60
             self.lifterMotors['liftMotor'].set(TalonSRX.ControlMode.Position, self.step)
@@ -37,6 +39,8 @@ class LifterSub(Subsystem):
 
     def LowerLevel(self):
         '''Lowers the lifter'''
+        self.lifterMotors['liftMotor'].set(-1)
+        return
         if self.level > 0:
             #self.voltage = -60
             self.lifterMotors['liftMotor'].set(TalonSRX.ControlMode.Position, -self.step)

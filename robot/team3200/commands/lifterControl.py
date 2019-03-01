@@ -14,6 +14,7 @@ class RaiseButton(InstantCommand):
         self.liftSub = liftSub
         
     def execute(self):
+        print("Raise Lifter command")
         self.liftSub.RaiseLevel()
         
     #def end(self):
@@ -26,6 +27,7 @@ class LowerButton(InstantCommand):
         self.liftSub = liftSub
         
     def execute(self):
+        print("Lower Lifter command")
         self.liftSub.LowerLevel()
         
     #def end(self):
@@ -57,13 +59,33 @@ class RollerIO(InstantCommand):
         self.liftSub = liftSub
         
     def execute(self):
-        self.liftSub.RunRoller(.5)
+        self.liftSub.RunRoller(1.0)
 
-class RollerToggle(InstantCommand):
+
+
+class StopRoller(InstantCommand):
+    '''Turns the motors on/off when pressed'''
+    def __init__(self, liftSub):
+        super().__init__("Toggle Roller On Off")
+        self.liftSub = liftSub
+        
+    def execute(self):
+        self.liftSub.RunRoller(0)
+
+class ForwardRoller(InstantCommand):
     '''Toggles the roller's direction.'''
     def __init__(self, liftSub):
         super().__init__("Toggle Intake")
         self.liftSub = liftSub
         
     def execute(self):
-        self.liftSub.ToggleRoller()
+        self.liftSub.RunRoller(-.666)
+        
+class ReverseRoller(InstantCommand):
+    '''Turns the motors on/off when pressed'''
+    def __init__(self, liftSub):
+        super().__init__("Toggle Roller On Off")
+        self.liftSub = liftSub
+        
+    def execute(self):
+        self.liftSub.RunRoller(1)

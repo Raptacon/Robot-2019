@@ -63,17 +63,20 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.straightButton.whileHeld(DriveStraight(self.dtSub))
         '''Buttons for the Auxiliary Controller'''
         self.raiseButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['RaiseButton'])
-        self.raiseButton.whenPressed(lifterControl.RaiseButton(self.liftSub))
+        self.raiseButton.whileHeld(lifterControl.RaiseButton(self.liftSub))
         self.raiseButton.whenReleased(lifterControl.StopButton(self.liftSub))
         self.lowerButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['LowerButton'])
-        self.lowerButton.whenPressed(lifterControl.LowerButton(self.liftSub))
+        self.lowerButton.whileHeld(lifterControl.LowerButton(self.liftSub))
         self.lowerButton.whenReleased(lifterControl.StopButton(self.liftSub))
         self.pistonButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['PistonButton'])
         self.pistonButton.whenPressed(lifterControl.PistonButton(self.pistonSub))
         self.rollerIO = JoystickButton(self.auxController, self.map.controllerMap.auxController['RollerIO'])
-        self.rollerIO.whenPressed(lifterControl.RollerIO(self.liftSub))
+        self.rollerIO.whenPressed(lifterControl.ForwardRoller(self.liftSub))
+        self.rollerIO.whenReleased(lifterControl.StopRoller(self.liftSub))
         self.rollerToggle = JoystickButton(self.auxController, self.map.controllerMap.auxController['RollerToggle'])
-        self.rollerToggle.whenPressed(lifterControl.RollerToggle(self.liftSub))
+        self.rollerToggle.whenPressed(lifterControl.ReverseRoller(self.liftSub))
+        self.rollerToggle.whenReleased(lifterControl.StopRoller(self.liftSub))
+
 
     def driveInit(self):
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
