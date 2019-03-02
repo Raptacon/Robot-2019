@@ -25,12 +25,13 @@ class MyRobot(commandbased.CommandBasedRobot):
         team3200.getRobot = lambda x=0:self
         self.map = team3200.robotMap.RobotMap()
         self.networkTableInit()
+        self.driveController = wpilib.XboxController(self.map.controllerMap.driverController['controllerId'])
+        print("Created Controller")
+        self.auxController = wpilib.XboxController(self.map.controllerMap.auxController['controllerId'])
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
 
         self.liftSub = team3200.subsystems.lifter.LifterSub()
         self.pistonSub = team3200.subsystems.lifter.PlatePiston()
-        self.driveController = wpilib.XboxController(self.map.controllerMap.driverController['controllerId'])
-        self.auxController = wpilib.XboxController(self.map.controllerMap.auxController['controllerId'])
 
         self.controllerInit()
 

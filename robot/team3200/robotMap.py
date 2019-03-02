@@ -1,4 +1,4 @@
-
+import ctre
 import wpilib.xboxcontroller
 import hal
 class RobotMap():
@@ -25,6 +25,12 @@ class CANMap():
         rampRate = .2
         #rotRampRate = .2
         pid = None
+        liftPid = {'feedbackType':ctre.talonsrx.TalonSRX.FeedbackDevice.CTRE_MagEncoder_Absolute, 'controlType':ctre.basemotorcontroller.BaseMotorController.ControlMode.Position, 'sensorPhase':True, 'pidControlType':None}
+        liftPid['kInput'] = 1
+        liftPid['kF'] = 0
+        liftPid['kP'] = 0
+        liftPid['kI'] = 0
+        liftPid['kD'] = 0
         lifterMotors = {}
         driveMotors = {}
         '''The code below is an example of code for the SparkMax motor controllers'''
@@ -35,7 +41,7 @@ class CANMap():
         driveMotors['rightMotor'] = {'channel':1, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         driveMotors['rightFollower'] = {'channel':2, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':1, "rampRate":rampRate}
         
-        lifterMotors['liftMotor'] = {'channel':4, 'inverted':True, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
+        lifterMotors['liftMotor'] = {'channel':4, 'inverted':True, 'type':'CANTalon', 'pid':liftPid, "rampRate":rampRate}
         lifterMotors['liftMotor2'] = {'channel':5, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':4, "rampRate":rampRate}
         lifterMotors['roller'] = {'channel':6, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         
