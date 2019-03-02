@@ -32,7 +32,8 @@ class LifterSub(Subsystem):
         return
         if self.level < 30:
             #self.voltage = 60
-            self.lifterMotors['liftMotor'].set(TalonSRX.ControlMode.Position, self.step)
+            #self.lifterMotors['liftMotor'].set(TalonSRX.ControlMode.Position, self.step)
+            self.lifterMotors['liftMotor'].set(self.step)
             #wpilib.Timer.delay(.75)
             #self.lifterMotors['liftMotor'].set(0)
             self.level = self.level + self.step
@@ -43,7 +44,8 @@ class LifterSub(Subsystem):
         return
         if self.level > 0:
             #self.voltage = -60
-            self.lifterMotors['liftMotor'].set(TalonSRX.ControlMode.Position, -self.step)
+            #self.lifterMotors['liftMotor'].set(TalonSRX.ControlMode.Position, -self.step)
+            self.lifterMotors['liftMotor'].set(self.step)
             #wpilib.Timer.delay(.4)
             #self.lifterMotors['liftMotor'].set(0)
             self.level = self.level + self.step
