@@ -108,3 +108,6 @@ venv.bak/
 /pip_cache
 .deploy_cfg
 .installer_config
+
+# Random things that aren't great
+*/vim.exe.stackdump
