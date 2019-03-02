@@ -94,4 +94,5 @@ class NetworkTableMap():
         #To create a new network value, create it with the format of "networkTableValues["NameOfValue"] = Value
         self.networkTableValues["ControllerSensitivity"] = -1
         self.networkTableValues["VoltageRumbleBeginsAt"] = 0 #no idea about what value might need to be
+        self.networkTableValues["GarrettMode"] = 1 #Not yet implemented
     
