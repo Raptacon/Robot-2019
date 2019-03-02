@@ -15,51 +15,19 @@ class LifterSub(Subsystem):
         self.map = self.robot.map
         self.level = 0
         self.step = 2
-        self.intakeSpd = 1
         self.lifterMotors = {}
         for key, motorDesc in self.map.motorsMap.lifterMotors.items():
             self.lifterMotors[key] = team3200.motorHelper.createMotor(motorDesc)
             print(key, motorDesc, self.lifterMotors[key])
             
-    
-    def StopLifter(self):
+    def SetLifter(self, position):
         '''Stops the lifter'''
         self.lifterMotors['liftMotor'].set(0)
     
-    def RaiseLevel(self):
-        '''Raises the lifter'''
-        self.lifterMotors['liftMotor'].set(1)
-        return
-        if self.level < 30:
-            #self.voltage = 60
-            #self.lifterMotors['liftMotor'].set(TalonSRX.ControlMode.Position, self.step)
-            self.lifterMotors['liftMotor'].set(self.step)
-            #wpilib.Timer.delay(.75)
-            #self.lifterMotors['liftMotor'].set(0)
-            self.level = self.level + self.step
-
-    def LowerLevel(self):
-        '''Lowers the lifter'''
-        self.lifterMotors['liftMotor'].set(-1)
-        return
-        if self.level > 0:
-            #self.voltage = -60
-            #self.lifterMotors['liftMotor'].set(TalonSRX.ControlMode.Position, -self.step)
-            self.lifterMotors['liftMotor'].set(self.step)
-            #wpilib.Timer.delay(.4)
-            #self.lifterMotors['liftMotor'].set(0)
-            self.level = self.level + self.step
-            
-    def ToggleRoller(self):
-        '''Toggles the roller's direction'''
-        self.intakeSpd = -self.intakeSpd
         
     def RunRoller(self, speed):
         '''Toggles the roller on/off.'''
-        if(self.lifterMotors['roller'].get() == 0):
-            self.lifterMotors['roller'].set(speed * self.intakeSpd)
-        else:
-            self.lifterMotors['roller'].set(0)
+        self.lifterMotors['roller'].set(speed)
             
 from wpilib import DoubleSolenoid
 class PlatePiston(Subsystem):

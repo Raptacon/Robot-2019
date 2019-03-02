@@ -71,10 +71,10 @@ class MyRobot(commandbased.CommandBasedRobot):
         #self.lowerButton.whenReleased(lifterControl.StopButton(self.liftSub))
         self.pistonButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['PistonButton'])
         self.pistonButton.whenPressed(lifterControl.PistonButton(self.pistonSub))
-        self.rollerIO = JoystickButton(self.auxController, self.map.controllerMap.auxController['RollerIO'])
+        self.rollerIO = JoystickButton(self.auxController, self.map.controllerMap.auxController['ForwardRoller'])
         self.rollerIO.whenPressed(lifterControl.ForwardRoller(self.liftSub))
         self.rollerIO.whenReleased(lifterControl.StopRoller(self.liftSub))
-        self.rollerToggle = JoystickButton(self.auxController, self.map.controllerMap.auxController['RollerToggle'])
+        self.rollerToggle = JoystickButton(self.auxController, self.map.controllerMap.auxController['ReverseRoller'])
         self.rollerToggle.whenPressed(lifterControl.ReverseRoller(self.liftSub))
         self.rollerToggle.whenReleased(lifterControl.StopRoller(self.liftSub))
 
