@@ -41,7 +41,7 @@ class CANMap():
         driveMotors['rightMotor'] = {'channel':1, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         driveMotors['rightFollower'] = {'channel':2, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':1, "rampRate":rampRate}
         
-        lifterMotors['liftMotor'] = {'channel':4, 'inverted':True, 'type':'CANTalon', 'pid':liftPid, "rampRate":rampRate}
+        lifterMotors['liftMotor'] = {'channel':4, 'inverted':True, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         lifterMotors['liftMotor2'] = {'channel':5, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':4, "rampRate":rampRate}
         lifterMotors['roller'] = {'channel':6, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         
@@ -79,7 +79,7 @@ class ControllerMap():
         '''Create buttons for the aux controller'''
         auxController['LowerButton'] = wpilib.XboxController.Button.kBumperLeft
         auxController['RaiseButton'] = wpilib.XboxController.Button.kBumperRight
-        auxController['StopButton'] = wpilib.XboxController.Button.kY
+        auxController['StopButt``on'] = wpilib.XboxController.Button.kY
         auxController['PistonButton'] = wpilib.XboxController.Button.kX
         auxController['ForwardRoller'] = wpilib.XboxController.Button.kA
         auxController['ReverseRoler'] = wpilib.XboxController.Button.kB
