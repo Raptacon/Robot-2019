@@ -50,30 +50,46 @@ class MyRobot(commandbased.CommandBasedRobot):
     def controllerInit(self):
         self.driveController = wpilib.XboxController(self.map.controllerMap.driverController['controllerId'])
         self.auxController = wpilib.XboxController(self.map.controllerMap.auxController['controllerId'])
+        
+        self.driveControllerMap = self.map.controllerMap.driverController
+        self.auxControllerMap = self.map.controllerMap.auxController
+        
+        #Spacing added for readability
+        
         '''Buttons for the Drive Controller'''
-        self.lightButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['ledToggle'])
+        self.lightButton = JoystickButton(self.driveController, self.driveControllerMap['ledToggle'])
         self.lightButton.whenPressed(Lights())
-        self.leftButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['leftButton'])
+        
+        self.leftButton = JoystickButton(self.driveController, self.driveControllerMap['leftButton'])
         self.leftButton.whileHeld(LeftTurn(self.dtSub))
-        self.rightButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['rightButton'])
+        
+        self.rightButton = JoystickButton(self.driveController, self.driveControllerMap['rightButton'])
         self.rightButton.whileHeld(RightTurn(self.dtSub))
-        self.alignButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['alignButton'])
+        
+        self.alignButton = JoystickButton(self.driveController, self.driveControllerMap['alignButton'])
         self.alignButton.whenPressed(AlignButton(self.dtSub))
-        self.straightButton = JoystickButton(self.driveController, self.map.controllerMap.driverController['straightButton'])
+        
+        self.straightButton = JoystickButton(self.driveController, self.driveControllerMap['straightButton'])
         self.straightButton.whileHeld(DriveStraight(self.dtSub))
+        
+        
         '''Buttons for the Auxiliary Controller'''
-        self.raiseButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['RaiseButton'])
+        self.raiseButton = JoystickButton(self.auxController, self.auxControllerMap['RaiseButton'])
         self.raiseButton.whileHeld(lifterControl.RaiseButton(self.liftSub))
         self.raiseButton.whenReleased(lifterControl.StopButton(self.liftSub))
-        self.lowerButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['LowerButton'])
+        
+        self.lowerButton = JoystickButton(self.auxController, self.auxControllerMap['LowerButton'])
         self.lowerButton.whileHeld(lifterControl.LowerButton(self.liftSub))
         self.lowerButton.whenReleased(lifterControl.StopButton(self.liftSub))
-        self.pistonButton = JoystickButton(self.auxController, self.map.controllerMap.auxController['PistonButton'])
+        
+        self.pistonButton = JoystickButton(self.auxController, self.auxControllerMap['PistonButton'])
         self.pistonButton.whenPressed(lifterControl.PistonButton(self.pistonSub))
-        self.rollerIO = JoystickButton(self.auxController, self.map.controllerMap.auxController['RollerIO'])
+        
+        self.rollerIO = JoystickButton(self.auxController, self.auxControllerMap['RollerIO'])
         self.rollerIO.whenPressed(lifterControl.ForwardRoller(self.liftSub))
         self.rollerIO.whenReleased(lifterControl.StopRoller(self.liftSub))
-        self.rollerToggle = JoystickButton(self.auxController, self.map.controllerMap.auxController['RollerToggle'])
+        
+        self.rollerToggle = JoystickButton(self.auxController, self.auxControllerMap['RollerToggle'])
         self.rollerToggle.whenPressed(lifterControl.ReverseRoller(self.liftSub))
         self.rollerToggle.whenReleased(lifterControl.StopRoller(self.liftSub))
 
