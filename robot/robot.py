@@ -24,18 +24,16 @@ class MyRobot(commandbased.CommandBasedRobot):
     def robotInit(self): 
         '''This is where the robot code starts.'''
         team3200.getRobot = lambda x=0:self
+        
         self.map = team3200.robotMap.RobotMap()
-        self.networkTableInit()
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
-
         self.liftSub = team3200.subsystems.lifter.LifterSub()
         self.pistonSub = team3200.subsystems.lifter.PlatePiston()
-        self.driveController = wpilib.XboxController(self.map.controllerMap.driverController['controllerId'])
-        self.auxController = wpilib.XboxController(self.map.controllerMap.auxController['controllerId'])
-
-        self.controllerInit()
-
         self.healthMonitor = team3200.subsystems.healthMonitor.HealthMonitor()
+        
+        self.controllerInit()
+        self.networkTableInit()
+
     
     def networkTableInit(self):
         '''This sets up the network tables and adds a variable called sensitivity'''
