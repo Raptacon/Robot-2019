@@ -1,6 +1,7 @@
 '''
-    This is a demo program showing how to use Mecanum control with the
-    RobotDrive class.
+The 2019 season robot code for the 'Destination: Deep Space' game. Main components of this code are the drive train,
+piston eject, ball intake, and lifter. Additionally, this robot uses a limelight camera, has lidar distance sensors, and
+implements network tables.
 '''
 
 import team3200
