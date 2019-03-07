@@ -12,7 +12,6 @@ class JoystickDrive(Command):
         super().__init__("Joystick Drive")
         self.robot = team3200.getRobot()
         self.requires(self.robot.dtSub)
-        self.tank = True
         self.sensitivity = -.7
         if ntSensitivity != None:    
             self.sensitivity = ntSensitivity.getNumber(-1)
@@ -32,9 +31,5 @@ class JoystickDrive(Command):
         dc = self.robot.driveController
         leftSide = dc.getRawAxis(self.robot.map.controllerMap.driverController['leftTread']) * self.sensitivity
         rightSide = dc.getRawAxis(self.robot.map.controllerMap.driverController['rightTread']) * self.sensitivity
-        leftRot = dc.getRawAxis(self.robot.map.controllerMap.driverController['leftRot']) * self.sensitivity
-        if self.tank:
-            self.robot.dtSub.setTankDrive(leftSide,rightSide)
-        elif not self.tank:
-            self.robot.dtSub.setArcadeDrive(leftSide, leftRot)
+        self.robot.dtSub.setTankDrive(leftSide,rightSide)
         
