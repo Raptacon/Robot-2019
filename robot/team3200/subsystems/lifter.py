@@ -24,7 +24,8 @@ class LifterSub(Subsystem):
     
     def Set(self, pos):
         '''Sets the lifter to the specified position.'''
-        self.lifterMotors['liftMotor'].set(pos)
+        self.pos = pos
+        self.lifterMotors['liftMotor'].set(TalonSRX.ControlMode.Position, self.pos)
     
     def GetPos(self):
         '''Returns the position of the lifter'''
