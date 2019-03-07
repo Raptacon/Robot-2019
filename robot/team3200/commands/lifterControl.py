@@ -5,7 +5,7 @@ Created on Sat Feb  9 12:00:38 2019
 @author: Matthew McFarland
 """
 from wpilib.command import InstantCommand
-from wpilib.command import Command
+#from wpilib.command import Command
 
 class RaiseButton(InstantCommand):
     '''A button to raise the lifter while it is held.'''
@@ -15,7 +15,10 @@ class RaiseButton(InstantCommand):
         
     def execute(self):
         print("Raise Lifter command")
-        self.liftSub.RaiseLevel()
+        newPos = self.liftSub.GetPos() + 20
+        if newPos < 80:
+            self.liftSub.Set(newPos)
+        #self.liftSub.RaiseLevel()
         
     #def end(self):
      #   self.liftSub.StopLifter()
@@ -28,6 +31,9 @@ class LowerButton(InstantCommand):
         
     def execute(self):
         print("Lower Lifter command")
+        newPos = self.liftSub.GetPos() - 20
+        if newPos > -1:
+            self.liftSub.Set(newPos)
         self.liftSub.LowerLevel()
         
     #def end(self):

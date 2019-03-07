@@ -26,7 +26,7 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.map = team3200.robotMap.RobotMap()
         self.networkTableInit()
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
-
+        self.liftHold = True
         self.liftSub = team3200.subsystems.lifter.LifterSub()
         self.pistonSub = team3200.subsystems.lifter.PlatePiston()
         self.driveController = wpilib.XboxController(self.map.controllerMap.driverController['controllerId'])
@@ -75,12 +75,20 @@ class MyRobot(commandbased.CommandBasedRobot):
         
         '''Buttons for the Auxiliary Controller'''
         self.raiseButton = JoystickButton(self.auxController, self.auxControllerMap['RaiseButton'])
-        self.raiseButton.whileHeld(lifterControl.RaiseButton(self.liftSub))
-        self.raiseButton.whenReleased(lifterControl.StopButton(self.liftSub))
+        if self.liftHold:
+            self.raiseButton.whileHeld(lifterControl.RaiseButton(self.liftSub))
+            self.raiseButton.whenReleased(lifterControl.StopButton(self.liftSub))
+        else:
+            self.raiseButton.whenPressed(lifterControl.RaiseButton(self.liftSub))
+        
         
         self.lowerButton = JoystickButton(self.auxController, self.auxControllerMap['LowerButton'])
-        self.lowerButton.whileHeld(lifterControl.LowerButton(self.liftSub))
-        self.lowerButton.whenReleased(lifterControl.StopButton(self.liftSub))
+        if self.liftHold:
+            self.lowerButton.whileHeld(lifterControl.LowerButton(self.liftSub))
+            self.lowerButton.whenReleased(lifterControl.StopButton(self.liftSub))
+        else:
+            self.lowerButton.whenPressed(lifterControl.LowerButton(self.liftSub))
+        
         
         self.pistonButton = JoystickButton(self.auxController, self.auxControllerMap['PistonButton'])
         self.pistonButton.whenPressed(lifterControl.PistonButton(self.pistonSub))

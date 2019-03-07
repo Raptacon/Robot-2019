@@ -13,7 +13,7 @@ class LifterSub(Subsystem):
         super().__init__("LifterSub")
         self.robot = team3200.getRobot()
         self.map = self.robot.map
-        self.level = 0
+        self.pos = 0
         self.step = 2
         self.intakeSpd = 1
         self.lifterMotors = {}
@@ -21,6 +21,14 @@ class LifterSub(Subsystem):
             self.lifterMotors[key] = team3200.motorHelper.createMotor(motorDesc)
             print(key, motorDesc, self.lifterMotors[key])
             
+    
+    def Set(self, pos):
+        '''Sets the lifter to the specified position.'''
+        self.lifterMotors['liftMotor'].set(pos)
+    
+    def GetPos(self):
+        '''Returns the position of the lifter'''
+        return self.pos
     
     def StopLifter(self):
         '''Stops the lifter'''
@@ -30,12 +38,12 @@ class LifterSub(Subsystem):
         '''Raises the lifter'''
         self.lifterMotors['liftMotor'].set(-1)
         return
-        if self.level < 30:
+        if self.pos < 30:
             #self.voltage = 60
             self.lifterMotors['liftMotor'].set(TalonSRX.ControlMode.Position, self.step)
             #wpilib.Timer.delay(.75)
             #self.lifterMotors['liftMotor'].set(0)
-            self.level = self.level + self.step
+            self.pos = self.pos + self.step
 
     def LowerLevel(self):
         '''Lowers the lifter'''
@@ -46,7 +54,7 @@ class LifterSub(Subsystem):
             self.lifterMotors['liftMotor'].set(TalonSRX.ControlMode.Position, -self.step)
             #wpilib.Timer.delay(.4)
             #self.lifterMotors['liftMotor'].set(0)
-            self.level = self.level + self.step
+            self.pos = self.pos + self.step
             
     def ToggleRoller(self):
         '''Toggles the roller's direction'''
