@@ -37,9 +37,9 @@ class MyRobot(commandbased.CommandBasedRobot):
     
     def networkTableInit(self):
         '''This sets up the network tables and adds a variable called sensitivity'''
+        
         NetworkTables.initialize(server = 'roborio-3200-frc.local')
         self.liveWindowTable = NetworkTables.getTable('Custom')
-        
         for k, v in self.map.networkTableMap.networkTableValues.items():
             #K for key, V for value
             self.liveWindowTable.putNumber(k, v)
@@ -94,7 +94,6 @@ class MyRobot(commandbased.CommandBasedRobot):
 
 
     def driveInit(self):
-        self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
         sensName = "ControllerSensitivity"
         if sensName in self.map.networkTableMap.networkTableValues:
             
