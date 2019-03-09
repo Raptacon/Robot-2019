@@ -48,8 +48,18 @@ class AlignButton(InstantCommand):
                     self.dtSub.autoTurn(.5, -.5)
 class DriveStraight(Command):
     def __init__(self, dtSub):
-        super().__init__("Right Turn")
+        super().__init__("Drive Forwards")
         self.dtSub = dtSub
+
         
     def execute(self):
         self.dtSub.autoTurn(.5, .5)
+		
+		
+class DriveBack(Command):
+	def __init__(self, dtSub):
+		super().__init__("Drive Back")
+		self.dtSub = dtSub
+		
+	def execute(self):
+		self.dtSub.autoTurn(-.5, -.5)

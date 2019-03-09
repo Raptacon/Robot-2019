@@ -13,6 +13,7 @@ from team3200.commands.align import RightTurn
 from team3200.commands.align import LeftTurn
 from team3200.commands.align import AlignButton
 from team3200.commands.align import DriveStraight
+from team3200.commands.directControl import Automove
 from team3200.commands import lifterControl
 import team3200.subsystems.driveTrain
 import team3200.subsystems.lifter
@@ -31,9 +32,7 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.pistonSub = team3200.subsystems.lifter.PlatePiston()
         self.driveController = wpilib.XboxController(self.map.controllerMap.driverController['controllerId'])
         self.auxController = wpilib.XboxController(self.map.controllerMap.auxController['controllerId'])
-
         self.controllerInit()
-
         self.healthMonitor = team3200.subsystems.healthMonitor.HealthMonitor()
     
     def networkTableInit(self):
@@ -53,6 +52,8 @@ class MyRobot(commandbased.CommandBasedRobot):
         
         self.driveControllerMap = self.map.controllerMap.driverController
         self.auxControllerMap = self.map.controllerMap.auxController
+        
+        self.automove = Automove(self.dtSub, self.driveController)
         
         #Spacing added for readability
         
