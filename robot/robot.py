@@ -26,7 +26,7 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.map = team3200.robotMap.RobotMap()
         self.networkTableInit()
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
-        self.liftHold = False
+        self.liftHold = True
         self.liftSub = team3200.subsystems.lifter.LifterSub()
         self.pistonSub = team3200.subsystems.lifter.PlatePiston()
         self.driveController = wpilib.XboxController(self.map.controllerMap.driverController['controllerId'])
@@ -34,7 +34,7 @@ class MyRobot(commandbased.CommandBasedRobot):
 
         self.controllerInit()
 
-        self.healthMonitor = team3200.subsystems.healthMonitor.HealthMonitor()
+        #self.healthMonitor = team3200.subsystems.healthMonitor.HealthMonitor()
     
     def networkTableInit(self):
         '''This sets up the network tables and adds a variable called sensitivity'''

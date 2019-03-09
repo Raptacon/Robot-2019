@@ -15,11 +15,11 @@ class RaiseButton(InstantCommand):
         
     def execute(self):
         print("Raise Lifter command")
-        newPos = self.liftSub.GetPos() + 20
-        if newPos < 80:
-            self.liftSub.Set(newPos)
-            print(newPos)
-        #self.liftSub.RaiseLevel()
+        #newPos = self.liftSub.GetPos() + 20
+        #if newPos < 80:
+        #    self.liftSub.Set(newPos)
+        #    print(newPos)
+        self.liftSub.RaiseLevel()
         
     #def end(self):
      #   self.liftSub.StopLifter()
@@ -32,11 +32,11 @@ class LowerButton(InstantCommand):
         
     def execute(self):
         print("Lower Lifter command")
-        newPos = self.liftSub.GetPos() - 20
-        if newPos > -1:
-            self.liftSub.Set(newPos)
-            print(newPos)
-        #self.liftSub.LowerLevel()
+        #newPos = self.liftSub.GetPos() - 20
+        #if newPos > -1:
+        #    self.liftSub.Set(newPos)
+        #    print(newPos)
+        self.liftSub.LowerLevel()
         
     #def end(self):
      #   self.liftSub.StopLifter()
