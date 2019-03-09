@@ -13,8 +13,6 @@ class LifterSub(Subsystem):
         super().__init__("LifterSub")
         self.robot = team3200.getRobot()
         self.map = self.robot.map
-        self.level = 0
-        self.step = 2
         self.intakeSpd = 1
         self.lifterMotors = {}
         for key, motorDesc in self.map.motorsMap.lifterMotors.items():
@@ -30,23 +28,11 @@ class LifterSub(Subsystem):
         '''Raises the lifter'''
         self.lifterMotors['liftMotor'].set(-1)
         return
-        if self.level < 30:
-            #self.voltage = 60
-            self.lifterMotors['liftMotor'].set(TalonSRX.ControlMode.Position, self.step)
-            #wpilib.Timer.delay(.75)
-            #self.lifterMotors['liftMotor'].set(0)
-            self.level = self.level + self.step
 
     def LowerLevel(self):
         '''Lowers the lifter'''
         self.lifterMotors['liftMotor'].set(1)
         return
-        if self.level > 0:
-            #self.voltage = -60
-            self.lifterMotors['liftMotor'].set(TalonSRX.ControlMode.Position, -self.step)
-            #wpilib.Timer.delay(.4)
-            #self.lifterMotors['liftMotor'].set(0)
-            self.level = self.level + self.step
             
     def ToggleRoller(self):
         '''Toggles the roller's direction'''
