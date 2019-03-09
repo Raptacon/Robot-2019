@@ -52,15 +52,6 @@ class StopButton(InstantCommand):
     def execute(self):
         self.liftSub.StopLifter()
 
-class RollerIO(InstantCommand):
-    '''Turns the motors on/off when pressed'''
-    def __init__(self, liftSub):
-        super().__init__("Toggle Roller On Off")
-        self.liftSub = liftSub
-        
-    def execute(self):
-        self.liftSub.RunRoller(1.0)
-
 
 
 class StopRoller(InstantCommand):
