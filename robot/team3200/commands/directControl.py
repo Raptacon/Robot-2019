@@ -7,8 +7,9 @@ Created on Sat Mar  9 12:56:42 2019
 
 
 from wpilib.command import Command
+from wpilib.command import InstantCommand
 
-class Automove(Command):
+class DPadMove(Command):
 	def __init__(self, dtSub, controller):
 		self.dtSub = dtSub
 		self.controller = controller
@@ -23,3 +24,18 @@ class Automove(Command):
 			self.dtSub.autoTurn(-1, -1)
 		if padAngle == 270:
 			self.dtSub.autoTurn(1, -1)
+			
+class DirCont(InstantCommand):
+	def __init__(self, dtSub, controller):
+		self.dtSub = dtSub
+		self.dMove = DPadMove(dtSub, controller)
+		
+	def execute(self):
+		self.dtSub.setCurrentCommand(self.dMove)
+		
+class RevCont(InstantCommand):
+	def __init__(self, dtSub):
+		self.dtSub = dtSub
+		
+	def execute(self):
+		self.dtSub.setCurrentCommand(self.dtSub.getDefaultCommand())

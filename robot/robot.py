@@ -13,7 +13,7 @@ from team3200.commands.align import RightTurn
 from team3200.commands.align import LeftTurn
 from team3200.commands.align import AlignButton
 from team3200.commands.align import DriveStraight
-from team3200.commands.directControl import Automove
+from team3200.commands import directControl
 from team3200.commands import lifterControl
 import team3200.subsystems.driveTrain
 import team3200.subsystems.lifter
@@ -53,7 +53,7 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.driveControllerMap = self.map.controllerMap.driverController
         self.auxControllerMap = self.map.controllerMap.auxController
         
-        self.automove = Automove(self.dtSub, self.driveController)
+        
         
         #Spacing added for readability
         
@@ -71,7 +71,8 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.alignButton.whenPressed(AlignButton(self.dtSub))
         
         self.straightButton = JoystickButton(self.driveController, self.driveControllerMap['straightButton'])
-        self.straightButton.whileHeld(DriveStraight(self.dtSub))
+        self.straightButton.whenPressed(directControl.DirCont(self.dtSub, self.driveController))
+        self.straightButton.whenReleased(directControl.RevCont(self.dtSub))
         
         
         '''Buttons for the Auxiliary Controller'''
