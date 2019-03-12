@@ -30,23 +30,23 @@ class JoystickDrive(Command):
     def execute(self):
         '''This sets up the axes on the controller to send into tankDrive'''
         dc = self.robot.driveController
-		padAngle = dc.getPOV(0)
-		if padAngle == -1:
-			leftSide = dc.getRawAxis(self.robot.map.controllerMap.driverController['leftTread']) * self.sensitivity
-			rightSide = dc.getRawAxis(self.robot.map.controllerMap.driverController['rightTread']) * self.sensitivity
-			leftRot = dc.getRawAxis(self.robot.map.controllerMap.driverController['leftRot']) * self.sensitivity
-			if self.tank:
-				self.robot.dtSub.setTankDrive(leftSide,rightSide)
-			elif not self.tank:
-				self.robot.dtSub.setArcadeDrive(leftSide, leftRot)
+        padAngle = dc.getPOV(0)
+        if padAngle == -1:
+            leftSide = dc.getRawAxis(self.robot.map.controllerMap.driverController['leftTread']) * self.sensitivity
+            rightSide = dc.getRawAxis(self.robot.map.controllerMap.driverController['rightTread']) * self.sensitivity
+            leftRot = dc.getRawAxis(self.robot.map.controllerMap.driverController['leftRot']) * self.sensitivity
+            if self.tank:
+                self.robot.dtSub.setTankDrive(leftSide,rightSide)
+            elif not self.tank:
+                self.robot.dtSub.setArcadeDrive(leftSide, leftRot)
         
         else:
-			if padAngle == 0:
-				self.robot.dtSub.autoTurn(1, 1)
-			elif padAngle == 90:
-				self.robot.dtSub.autoTurn(-1, 1)
-			elif padAngle == 180:
-				self.robot.dtSub.autoTurn(-1, -1)
-			elif padAngle == 270:
-				self.robot.dtSub.autoTurn(1, -1)
+            if padAngle == 0:
+                self.robot.dtSub.autoTurn(1 * self.sensitivity, 1 * self.sensitivity)
+            elif padAngle == 90:
+                self.robot.dtSub.autoTurn(1 * self.sensitivity, -1 * self.sensitivity)
+            elif padAngle == 180:
+                self.robot.dtSub.autoTurn(-1 * self.sensitivity, -1 * self.sensitivity)
+            elif padAngle == 270:
+                self.robot.dtSub.autoTurn(-1 * self.sensitivity, 1 * self.sensitivity)
         
