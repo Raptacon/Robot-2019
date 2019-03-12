@@ -38,3 +38,13 @@ class JoystickDrive(Command):
         elif not self.tank:
             self.robot.dtSub.setArcadeDrive(leftSide, leftRot)
         
+        padAngle = dc.getPOV(0)
+        if padAngle == 0:
+            self.robot.dtSub.autoTurn(1, 1)
+        elif padAngle == 90:
+            self.robot.dtSub.autoTurn(-1, 1)
+        elif padAngle == 180:
+            self.robot.dtSub.autoTurn(-1, -1)
+        elif padAngle == 270:
+            self.robot.dtSub.autoTurn(1, -1)
+        
