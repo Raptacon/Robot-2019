@@ -42,11 +42,11 @@ class JoystickDrive(Command):
         
         else:
             if padAngle == 0:
-                self.robot.dtSub.autoTurn(1 * self.sensitivity, 1 * self.sensitivity)
-            elif padAngle == 90:
-                self.robot.dtSub.autoTurn(1 * self.sensitivity, -1 * self.sensitivity)
-            elif padAngle == 180:
                 self.robot.dtSub.autoTurn(-1 * self.sensitivity, -1 * self.sensitivity)
-            elif padAngle == 270:
+            elif padAngle == 90:
                 self.robot.dtSub.autoTurn(-1 * self.sensitivity, 1 * self.sensitivity)
+            elif padAngle == 180:
+                self.robot.dtSub.autoTurn(1 * self.sensitivity, 1 * self.sensitivity)
+            elif padAngle == 270:
+                self.robot.dtSub.autoTurn(1 * self.sensitivity, -1 * self.sensitivity)
         

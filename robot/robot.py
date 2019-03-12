@@ -26,7 +26,7 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.map = team3200.robotMap.RobotMap()
         self.networkTableInit()
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
-        self.liftHold = False
+        self.liftHold = True
         self.liftSub = team3200.subsystems.lifter.LifterSub()
         self.pistonSub = team3200.subsystems.lifter.PlatePiston()
         self.driveController = wpilib.XboxController(self.map.controllerMap.driverController['controllerId'])
