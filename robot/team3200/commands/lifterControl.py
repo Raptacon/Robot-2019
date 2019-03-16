@@ -20,6 +20,7 @@ class RaiseButton(InstantCommand):
         #    self.liftSub.Set(newPos)
         #    print(newPos)
         self.liftSub.RaiseLevel()
+        print(self.liftSub.GetPos())
         
     #def end(self):
      #   self.liftSub.StopLifter()
@@ -37,6 +38,7 @@ class LowerButton(InstantCommand):
         #    self.liftSub.Set(newPos)
         #    print(newPos)
         self.liftSub.LowerLevel()
+        print(self.liftSub.GetPos())
         
     #def end(self):
      #   self.liftSub.StopLifter()
