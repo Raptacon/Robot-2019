@@ -43,7 +43,7 @@ class PistonButton(InstantCommand):
         print("Piston Button Pressed")
         self.pistonSub.Activate()
 
-class StopButton(InstantCommand):
+class StopLifter(InstantCommand):
     '''Used when the lifter buttons are released. Stops lifter motors.'''
     def __init__(self,liftSub):
         super().__init__("Stop Lifter")
@@ -63,7 +63,7 @@ class StopRoller(InstantCommand):
     def execute(self):
         self.liftSub.RunRoller(0)
 
-class ForwardRoller(InstantCommand):
+class RollerIn(InstantCommand):
     '''Toggles the roller's direction.'''
     def __init__(self, liftSub):
         super().__init__("Toggle Intake")
@@ -72,7 +72,7 @@ class ForwardRoller(InstantCommand):
     def execute(self):
         self.liftSub.RunRoller(-.666)
         
-class ReverseRoller(InstantCommand):
+class RollerOut(InstantCommand):
     '''Turns the motors on/off when pressed'''
     def __init__(self, liftSub):
         super().__init__("Toggle Roller On Off")

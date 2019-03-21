@@ -75,21 +75,21 @@ class MyRobot(commandbased.CommandBasedRobot):
         '''Buttons for the Auxiliary Controller'''
         self.raiseButton = JoystickButton(self.auxController, self.auxControllerMap['RaiseButton'])
         self.raiseButton.whileHeld(lifterControl.RaiseButton(self.liftSub))
-        self.raiseButton.whenReleased(lifterControl.StopButton(self.liftSub))
+        self.raiseButton.whenReleased(lifterControl.StopLifter(self.liftSub))
         
         self.lowerButton = JoystickButton(self.auxController, self.auxControllerMap['LowerButton'])
         self.lowerButton.whileHeld(lifterControl.LowerButton(self.liftSub))
-        self.lowerButton.whenReleased(lifterControl.StopButton(self.liftSub))
+        self.lowerButton.whenReleased(lifterControl.StopLifter(self.liftSub))
         
         self.pistonButton = JoystickButton(self.auxController, self.auxControllerMap['PistonButton'])
         self.pistonButton.whenPressed(lifterControl.PistonButton(self.pistonSub))
         
         self.rollerIn = JoystickButton(self.auxController, self.auxControllerMap['RollerIn'])
-        self.rollerIn.whenPressed(lifterControl.ForwardRoller(self.liftSub))
+        self.rollerIn.whenPressed(lifterControl.RollerIn(self.liftSub))
         self.rollerIn.whenReleased(lifterControl.StopRoller(self.liftSub))
         
         self.rollerOut = JoystickButton(self.auxController, self.auxControllerMap['RollerOut'])
-        self.rollerOut.whenPressed(lifterControl.ReverseRoller(self.liftSub))
+        self.rollerOut.whenPressed(lifterControl.RollerOut(self.liftSub))
         self.rollerOut.whenReleased(lifterControl.StopRoller(self.liftSub))
 
 
