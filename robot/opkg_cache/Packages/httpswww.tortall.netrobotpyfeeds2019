@@ -227,6 +227,21 @@ Depends: python37
 Priority: optional
 
 
+Package: python37-ptvsd
+Version: 4.2.4
+Section: devel
+Architecture: cortexa9-vfpv3
+Maintainer: RobotPy Developers <robotpy@googlegroups.com>
+MD5Sum: bc9d5b5edc1ac7848e01f27bc14afcb2
+Size: 2165430
+Filename: python37-ptvsd_4.2.4_cortexa9-vfpv3.ipk
+Description: Remote debugging server for Python support in Visual Studio and Visual Studio Code
+OE: unknown
+Homepage: unknown
+Depends: python37
+Priority: optional
+
+
 Package: python37-pydevd
 Version: 1.4.0
 Section: devel
@@ -445,6 +460,21 @@ Maintainer: RobotPy Developers <robotpy@googlegroups.com>
 MD5Sum: f3c76f566406f70f941ebe7377771043
 Size: 373698
 Filename: python37-robotpy-ctre_2019.3.0_cortexa9-vfpv3.ipk
+Description: RobotPy bindings for CTRE third party libraries
+OE: unknown
+Homepage: unknown
+Depends: python37
+Priority: optional
+
+
+Package: python37-robotpy-ctre
+Version: 2019.3.2
+Section: devel
+Architecture: cortexa9-vfpv3
+Maintainer: RobotPy Developers <robotpy@googlegroups.com>
+MD5Sum: 7c21c6227c22e266e5fb0ab119b4bcc5
+Size: 380372
+Filename: python37-robotpy-ctre_2019.3.2_cortexa9-vfpv3.ipk
 Description: RobotPy bindings for CTRE third party libraries
 OE: unknown
 Homepage: unknown

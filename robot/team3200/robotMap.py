@@ -35,7 +35,7 @@ class CANMap():
         driveMotors['rightMotor'] = {'channel':1, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         driveMotors['rightFollower'] = {'channel':2, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':1, "rampRate":rampRate}
         
-        lifterMotors['liftMotor'] = {'channel':4, 'inverted':True, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
+        lifterMotors['liftMotor'] = {'channel':4, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         lifterMotors['liftMotor2'] = {'channel':5, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':4, "rampRate":rampRate}
         lifterMotors['roller'] = {'channel':6, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         

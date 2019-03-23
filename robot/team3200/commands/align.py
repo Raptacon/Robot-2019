@@ -34,6 +34,7 @@ class AlignButton(InstantCommand):
     def execute(self):
         '''This aligns the robot up to a target it sees when a button is pressed'''
         print("Alignment Started")
+        self.table.getEntry('camMode').setValue(0)
         if(self.table.getEntry('tv').value == 1):
             self.tx = self.table.getNumber('tx', None)
             while(self.tx < -2 or self.tx > 2):
@@ -46,6 +47,7 @@ class AlignButton(InstantCommand):
                     '''Active when the target is to the right.'''
                     #print(self.tx)
                     self.dtSub.autoTurn(.5, -.5)
+        self.table.getEntry('camMode').setValue(1)
 class DriveStraight(Command):
     def __init__(self, dtSub):
         super().__init__("Drive Forwards")

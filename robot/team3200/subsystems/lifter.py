@@ -7,6 +7,7 @@ Created on Fri Feb  8 18:00:27 2019
 from ctre.talonsrx import TalonSRX
 from wpilib.command.subsystem import Subsystem
 from wpilib.encoder import Encoder
+from wpilib.counter import Counter
 import team3200
 
 class LifterSub(Subsystem):
@@ -22,7 +23,8 @@ class LifterSub(Subsystem):
             self.lifterMotors[key] = team3200.motorHelper.createMotor(motorDesc)
             print(key, motorDesc, self.lifterMotors[key])
             
-        self.encoder = Encoder(7, 8)
+        #self.encoder = Encoder(8, 9, False, Encoder.EncodingType.k1X)
+        self.counter = Counter(8)
     
     def Set(self, pos):
         '''Sets the lifter to the specified position.'''
@@ -31,7 +33,7 @@ class LifterSub(Subsystem):
     
     def GetPos(self):
         '''Returns the position of the lifter'''
-        return self.encoder.getDistance
+        return (self.counter.get(), self.counter.getDistance())
     
     def StopLifter(self):
         '''Stops the lifter'''
