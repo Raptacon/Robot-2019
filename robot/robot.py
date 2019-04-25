@@ -14,6 +14,7 @@ from team3200.commands.align import LeftTurn
 from team3200.commands.align import AlignButton
 from team3200.commands.align import DriveStraight
 from team3200.commands import lifterControl
+from team3200.commands import joystickDrive
 import team3200.subsystems.driveTrain
 import team3200.subsystems.lifter
 import team3200.subsystems.healthMonitor
@@ -26,6 +27,8 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.map = team3200.robotMap.RobotMap()
         self.networkTableInit()
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
+        self.jDrive = joystickDrive.JoystickDrive(-.8)
+        self.driveInit(self.jDrive)
         self.liftHold = True
         self.liftSub = team3200.subsystems.lifter.LifterSub()
         self.pistonSub = team3200.subsystems.lifter.PlatePiston()
@@ -61,16 +64,17 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.lightButton.whenPressed(Lights())
         
         self.leftButton = JoystickButton(self.driveController, self.driveControllerMap['leftButton'])
-        self.leftButton.whileHeld(LeftTurn(self.dtSub))
+        self.leftButton.whenPressed(joystickDrive.GearDown(self))
         
         self.rightButton = JoystickButton(self.driveController, self.driveControllerMap['rightButton'])
-        self.rightButton.whileHeld(RightTurn(self.dtSub))
+        self.rightButton.whileHeld(joystickDrive.GearUp(self))
         
         self.alignButton = JoystickButton(self.driveController, self.driveControllerMap['alignButton'])
         self.alignButton.whenPressed(AlignButton(self.dtSub))
         
         self.straightButton = JoystickButton(self.driveController, self.driveControllerMap['straightButton'])
         self.straightButton.whileHeld(DriveStraight(self.dtSub))
+        
         
         
         '''Buttons for the Auxiliary Controller'''
@@ -102,14 +106,15 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.rollerToggle.whenReleased(lifterControl.StopRoller(self.liftSub))
 
 
-    def driveInit(self):
+    def driveInit(self, jDrive):
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
+        self.jDrive = jDrive
         sensName = "ControllerSensitivity"
         if sensName in self.map.networkTableMap.networkTableValues:
             
             sensEntry = self.liveWindowTable.getEntry(sensName)
-            jDrive = team3200.commands.joystickDrive.JoystickDrive(sensEntry)
-            self.dtSub.setDefaultCommand(jDrive)
+            self.jDrive = team3200.commands.joystickDrive.JoystickDrive(sensEntry)
+            self.dtSub.setDefaultCommand(self.jDrive)
         
 def exit(retval):
     pass

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from wpilib.command import Command
+from wpilib.command import InstantCommand
 import team3200
 class JoystickDrive(Command):
     """
@@ -49,4 +50,22 @@ class JoystickDrive(Command):
                 self.robot.dtSub.autoTurn(1 * self.sensitivity, 1 * self.sensitivity)
             elif padAngle == 270:
                 self.robot.dtSub.autoTurn(1 * self.sensitivity, -1 * self.sensitivity)
+                
+class GearUp(InstantCommand):
+    def __init__(self, robot):
+        super().__init__("GearUp")
+        self.robot = robot
+        
+    def execute(self):
+        if(self.robot.jDrive.getSensitivity() > -1):
+            self.robot.jDrive.setSensitivity(self.robot.jDrive.getSensitivity() - .1)
+            
+class GearDown(InstantCommand):
+    def __init__(self, robot):
+        super().__init__("GearUp")
+        self.robot = robot
+        
+    def execute(self):
+        if(self.robot.jDrive.getSensitivity() < 0):
+            self.robot.jDrive.setSensitivity(self.robot.jDrive.getSensitivity() + .1)
         

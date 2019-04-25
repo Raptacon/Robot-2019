@@ -65,3 +65,6 @@ class DriveBack(Command):
 		
 	def execute(self):
 		self.dtSub.autoTurn(-.5, -.5)
+
+class Blink(InstantCommand):
+    def __        
