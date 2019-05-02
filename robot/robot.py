@@ -27,7 +27,8 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.map = team3200.robotMap.RobotMap()
         self.networkTableInit()
         self.dtSub = team3200.subsystems.driveTrain.DriveTrainSub()
-        self.jDrive = joystickDrive.JoystickDrive(-.8)
+        self.jGreatDrive = joystickDrive.JoystickDrive(-.8)
+        self.jDrive = self.jGreatDrive
         self.driveInit(self.jDrive)
         self.liftHold = True
         self.liftSub = team3200.subsystems.lifter.LifterSub()
