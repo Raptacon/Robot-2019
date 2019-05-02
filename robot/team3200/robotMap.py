@@ -30,7 +30,7 @@ class CANMap():
         '''The code below is an example of code for the SparkMax motor controllers'''
         #shooterMotors['RotMotor'] = {'channel':4, 'inverted':False, 'type':'SparkMax', 'pid':rotPid, 'motorType':MotorType.kBrushless}
         '''The code below is for controlling TalonSRX motor controllers as well as their followers'''
-        driveMotors['leftMotor'] = {'channel':0, 'inverted':True, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
+        driveMotors['leftMotor'] = {'fanBase':0, 'inverted':True, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate, 'channel':0}
         driveMotors['leftFollower'] = {'channel':3, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':0, "rampRate":rampRate}
         driveMotors['rightMotor'] = {'channel':1, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         driveMotors['rightFollower'] = {'channel':2, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':1, "rampRate":rampRate}
