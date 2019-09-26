@@ -51,6 +51,9 @@ class RollerToggle(InstantCommand):
 	def __init__(self, liftSub):
 		super().__init__("Toggle Intake")
 		self.liftSub = liftSub
+        
+    def execute(self):
+        self.liftSub.InRoller(.8)
 		
 	def execute(self):
 		self.liftSub.ToggleRoller()
