@@ -27,22 +27,24 @@ class CANMap():
         pid = None
         lifterMotors = {}
         driveMotors = {}
+        rollerMotors = {}
         '''The code below is an example of code for the SparkMax motor controllers'''
         #shooterMotors['RotMotor'] = {'channel':4, 'inverted':False, 'type':'SparkMax', 'pid':rotPid, 'motorType':MotorType.kBrushless}
         '''The code below is for controlling TalonSRX motor controllers as well as their followers'''
-        driveMotors['leftMotor'] = {'channel':0, 'inverted':True, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
-        driveMotors['leftFollower'] = {'channel':3, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':0, "rampRate":rampRate}
-        driveMotors['rightMotor'] = {'channel':1, 'inverted':True, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
+        driveMotors['leftMotor'] = {'channel':0, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
+        driveMotors['leftFollower'] = {'channel':3, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':0, "rampRate":rampRate}
+        driveMotors['rightMotor'] = {'channel':1, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         driveMotors['rightFollower'] = {'channel':2, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':1, "rampRate":rampRate}
         
-        lifterMotors['liftMotor'] = {'channel':4, 'inverted':True, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
-        lifterMotors['liftMotor2'] = {'channel':5, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':4, "rampRate":rampRate}
-        lifterMotors['roller'] = {'channel':6, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
-        angleMotor = {'channel':13, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
+
+        lifterMotors['liftMotor'] = {'channel':4, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
+
+        rollerMotors['roller'] = {'channel':5, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate} #top
+        rollerMotors['rollerBottomFollower'] = {'channel':6, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':5, 'pid':pid, "rampRate":rampRate}
         
         self.driveMotors = driveMotors
         self.lifterMotors = lifterMotors
-        self.angleMotor = angleMotor
+        self.angleMotor = rollerMotors
 
 class PneumaticsMap():
     def __init__(self):

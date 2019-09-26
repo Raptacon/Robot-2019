@@ -28,10 +28,15 @@ class LifterSub(Subsystem):
 		self.level = 0
 		self.intakeSpd = 1
 		self.lifterMotors = {}
+		self.angleMotor = {}
 		for key, motorDesc in self.map.motorsMap.lifterMotors.items():
 			self.lifterMotors[key] = team3200.motorHelper.createMotor(motorDesc)
 			print(key, motorDesc, self.lifterMotors[key])
-		self.angleMotor = team3200.motorHelper.createMotor(self.map.motorsMap.angleMotor)#creates test angle motor; for learning encoders
+
+		for key, motorDesc in self.map.motorsMap.angleMotor.items():
+			self.angleMotor[key] = team3200.motorHelper.createMotor(motorDesc)#creates test angle motor; for learning encoders
+			print(key, motorDesc, self.angleMotor[key])
+		
 			
 	
 	def StopLifter(self):
