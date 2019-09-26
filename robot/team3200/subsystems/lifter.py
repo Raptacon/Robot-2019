@@ -17,52 +17,53 @@ class Level(IntEnum):
 	kHighBall = 7
 
 from wpilib.command.subsystem import Subsystem
-import team3200
 import wpilib
-
+import team3200
 class LifterSub(Subsystem):
-	def __init__(self):
-		super().__init__("LifterSub")
-		self.robot = team3200.getRobot()
-		self.map = self.robot.map
-		self.level = 0
-		self.intakeSpd = 1
-		self.lifterMotors = {}
-		for key, motorDesc in self.map.motorsMap.lifterMotors.items():
-			self.lifterMotors[key] = team3200.motorHelper.createMotor(motorDesc)
-			print(key, motorDesc, self.lifterMotors[key])
-		self.angleMotor = team3200.motorHelper.createMotor(self.map.motorsMap.angleMotor)#creates test angle motor; for learning encoders
-			
-	
-	def StopLifter(self):
-		print(self.level)
-	
-	def RaiseLevel(self):
-		if self.level < Level.kHighBall:
-			self.lifterMotors['liftMotor'].set(.5)
-			wpilib.Timer.delay(1)
-			self.lifterMotors['liftMotor'].set(0)
-			self.level = self.level + 1
+    def __init__(self):
+        super().__init__("LifterSub")
+        self.robot = team3200.getRobot()
+        self.map = self.robot.map
+        self.level = 0
+        self.intakeSpd = 1
+        self.lifterMotors = {}
+        for key, motorDesc in self.map.motorsMap.lifterMotors.items():
+            self.lifterMotors[key] = team3200.motorHelper.createMotor(motorDesc)
+            print(key, motorDesc, self.lifterMotors[key])
+		#self.angleMotor = team3200.motorHelper.createMotor(self.map.motorsMap.angleMotor)#creates test angle motor; for learning encoders
 
-	def LowerLevel(self):
-		print(self.angleMotor.getQuadraturePosition())
-		self.angleMotor.setQuadraturePosition(128)
-        #Inserted code above to help with troubleshooting the encoders. This allows us to get the quadrature counts to then reset the counts to 128
-		if self.level > Level.kFloor:
-			self.lifterMotors['liftMotor'].set(-.5)
-			wpilib.Timer.delay(1)
-			self.lifterMotors['liftMotor'].set(0)
-			self.level = self.level - 1
-			
-			
-	def ToggleRoller(self):
-		self.intakeSpd = -self.intakeSpd
+	
+    def StopLifter(self):
+        print(self.level)
+        self.lifterMotors['liftMotor'].set(0)
+	
+    def RaiseLevel(self):
+        #if self.level < Level.kHighBall:
+            self.lifterMotors['liftMotor'].set(.5)
+            wpilib.Timer.delay(.1)
+            self.lifterMotors['liftMotor'].set(0)
+            self.level = self.level + 1
+
+    def LowerLevel(self):
 		
-	def RunRoller(self, speed):
-		if(self.lifterMotors['roller'].get() == 0):
-			self.lifterMotors['roller'].set(speed * self.intakeSpd)
-		else:
-			self.lifterMotors['roller'].set(0)
+        #print(self.angleMotor.getQuadraturePosition())
+		#self.angleMotor.setQuadraturePosition(128)
+        #Inserted code above to help with troubleshooting the encoders. This allows us to get the quadrature counts to then reset the counts to 128
+        #if self.level > Level.kFloor:
+            self.lifterMotors['liftMotor'].set(-.5)
+            wpilib.Timer.delay(.1)
+            self.lifterMotors['liftMotor'].set(0)
+            self.level = self.level - 1
+			
+			
+    def ToggleRoller(self):
+        self.intakeSpd = -self.intakeSpd
+		
+    def RunRoller(self, speed):
+        if(self.lifterMotors['roller'].get() == 0):
+            self.lifterMotors['roller'].set(speed * self.intakeSpd)
+        else:
+            self.lifterMotors['roller'].set(0)
 			
 from wpilib import DoubleSolenoid
 class PlatePiston(Subsystem):

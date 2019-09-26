@@ -45,7 +45,7 @@ class RollerIO(InstantCommand):
 		self.liftSub = liftSub
 		
 	def execute(self):
-		self.liftSub.RunRoller(.5)
+		self.liftSub.RunRoller(.8)
 
 class RollerToggle(InstantCommand):
 	def __init__(self, liftSub):
