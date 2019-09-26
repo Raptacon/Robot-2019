@@ -84,8 +84,9 @@ class MyRobot(commandbased.CommandBasedRobot):
             self.dtSub.setDefaultCommand(jDrive)
     
     def testInit(self):
-        angleMotor = self.map.motorsMap.angleMotor
-        team3200.motorHelper.createMotor(angleMotor)
+        #angleMotor = self.map.motorsMap.angleMotor
+        #team3200.motorHelper.createMotor(angleMotor)
+        pass
         
 def exit(retval):
     pass
