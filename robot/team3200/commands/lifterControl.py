@@ -22,6 +22,14 @@ class LowerButton(InstantCommand):
 		
 	def execute(self):
 		self.liftSub.LowerLevel()
+		
+class StopButton(InstantCommand):
+	def __init__(self,liftSub):
+		super().__init__("Stop Lifter")
+		self.liftSub = liftSub
+		
+	def execute(self):
+		self.liftSub.StopLifter()
 
 class PistonButton(InstantCommand):
 	def __init__(self, pistonSub):
@@ -30,14 +38,6 @@ class PistonButton(InstantCommand):
 		
 	def execute(self):
 		self.pistonSub.Activate()
-
-class StopButton(InstantCommand):
-	def __init__(self,liftSub):
-		super().__init__("Stop Lifter")
-		self.liftSub = liftSub
-		
-	def execute(self):
-		self.liftSub.StopLifter()
 
 class RollerIO(InstantCommand): #change name and refactor rollerio and rollertoggle
 	def __init__(self, liftSub):

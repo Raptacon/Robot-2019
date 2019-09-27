@@ -35,14 +35,11 @@ class LifterSub(Subsystem):
 	
     def StopLifter(self):
         print(self.level)
-        self.lifterMotors['liftMotor'].set(0)
+        self.lifterMotors['liftMotor'].set(-0.001)
 	
     def RaiseLevel(self):
         #if self.level < Level.kHighBall:
             self.lifterMotors['liftMotor'].set(.5)
-            wpilib.Timer.delay(.1)
-            self.lifterMotors['liftMotor'].set(0)
-            self.level = self.level + 1
 
     def LowerLevel(self):
 		
@@ -51,9 +48,6 @@ class LifterSub(Subsystem):
         #Inserted code above to help with troubleshooting the encoders. This allows us to get the quadrature counts to then reset the counts to 128
         #if self.level > Level.kFloor:
             self.lifterMotors['liftMotor'].set(-.5)
-            wpilib.Timer.delay(.1)
-            self.lifterMotors['liftMotor'].set(0)
-            self.level = self.level - 1
 			
 			
     def ToggleRoller(self):
