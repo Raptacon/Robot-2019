@@ -60,16 +60,13 @@ class LifterSub(Subsystem):
         self.intakeSpd = -self.intakeSpd
 		
     def RunRoller(self, speed):
-        if(self.lifterMotors['roller'].get() == 0):
-            self.lifterMotors['roller'].set(speed * self.intakeSpd)
-        else:
-            self.lifterMotors['roller'].set(0)
+        self.lifterMotors['roller'].set(speed * self.intakeSpd)
             
     def InRoller(self, speed):
-        if(self.lifterMotors['roller'].get() == 0):
-            self.lifterMotors['roller'].set(speed * self.intakeSpd * -1)
-        else:
-            self.lifterMotors['roller'].set(0)
+        self.lifterMotors['roller'].set(speed * self.intakeSpd * -1)
+	
+    def StopRoller(self):
+    	self.lifterMotors['roller'].set(0)
 			
 from wpilib import DoubleSolenoid
 class PlatePiston(Subsystem):

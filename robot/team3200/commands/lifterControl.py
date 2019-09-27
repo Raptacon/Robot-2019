@@ -39,7 +39,7 @@ class StopButton(InstantCommand):
 	def execute(self):
 		self.liftSub.StopLifter()
 
-class RollerIO(InstantCommand):
+class RollerIO(InstantCommand): #change name and refactor rollerio and rollertoggle
 	def __init__(self, liftSub):
 		super().__init__("Toggle Roller On Off")
 		self.liftSub = liftSub
@@ -54,3 +54,11 @@ class RollerToggle(InstantCommand):
 		
 	def execute(self):
 		self.liftSub.InRoller(.8)
+		
+class RollerStop(InstantCommand):
+	def __init__(self, liftSub):
+		super().__init__("Turn off roller")
+		self.liftSub = liftSub
+		
+	def execute(self):
+		self.liftSub.StopRoller()
