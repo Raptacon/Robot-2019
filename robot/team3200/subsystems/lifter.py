@@ -48,8 +48,10 @@ class LifterSub(Subsystem):
         #Inserted code above to help with troubleshooting the encoders. This allows us to get the quadrature counts to then reset the counts to 128
         #if self.level > Level.kFloor:
             self.lifterMotors['liftMotor'].set(-.5)
-			
-			
+
+    def LockLifter(self):
+        self.lifterMotors['liftMotor'].set(.1)
+
     def ToggleRoller(self):
         self.intakeSpd = -self.intakeSpd
 		

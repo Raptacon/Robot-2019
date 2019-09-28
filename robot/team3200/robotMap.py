@@ -74,10 +74,10 @@ class ControllerMap():
         auxController['LowerButton'] = wpilib.XboxController.Button.kBumperLeft
         auxController['RaiseButton'] = wpilib.XboxController.Button.kBumperRight
         auxController['StopButton'] = wpilib.XboxController.Button.kY
-        auxController['PistonButton'] = wpilib.XboxController.Button.kX
+        #auxController['PistonButton'] = wpilib.XboxController.Button.kX
         auxController['RollerIO'] = wpilib.XboxController.Button.kA
         auxController['RollerToggle'] = wpilib.XboxController.Button.kB
-
+        auxController['LockToggle'] = wpilib.XboxController.Button.kX
         
         driverController['voltRumble'] = 8.0
         

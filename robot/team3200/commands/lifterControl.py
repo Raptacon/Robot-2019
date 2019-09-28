@@ -5,14 +5,15 @@ Created on Sat Feb  9 12:00:38 2019
 @author: Micro
 """
 from wpilib.command import InstantCommand
-
+locked = False
 class RaiseButton(InstantCommand):
 	def __init__(self, liftSub):
 		super().__init__("Raise Height")
 		self.liftSub = liftSub
 		
 	def execute(self):
-		self.liftSub.RaiseLevel()
+		if locked!=True:
+			self.liftSub.RaiseLevel()
 		
 
 class LowerButton(InstantCommand):
@@ -21,7 +22,8 @@ class LowerButton(InstantCommand):
 		self.liftSub = liftSub
 		
 	def execute(self):
-		self.liftSub.LowerLevel()
+		if locked != True:
+			self.liftSub.LowerLevel()
 		
 class StopButton(InstantCommand):
 	def __init__(self,liftSub):
@@ -29,15 +31,27 @@ class StopButton(InstantCommand):
 		self.liftSub = liftSub
 		
 	def execute(self):
-		self.liftSub.StopLifter()
-
-class PistonButton(InstantCommand):
-	def __init__(self, pistonSub):
-		super().__init__("Actuate Piston")
-		self.pistonSub = pistonSub
+		if locked!=True:
+			self.liftSub.StopLifter()
 		
+class LockToggle(InstantCommand):
+	def __init__(self,liftSub):
+		super().__init__("Lock Lifter")
+		self.liftSub = liftSub
 	def execute(self):
-		self.pistonSub.Activate()
+		global locked
+		if(locked == True):
+			locked = False
+		else:
+			locked = True
+			self.liftSub.LockLifter()
+#class PistonButton(InstantCommand):
+#	def __init__(self, pistonSub):
+#		super().__init__("Actuate Piston")
+#		self.pistonSub = pistonSub
+#		
+#	def execute(self):
+#		self.pistonSub.Activate()
 
 class RollerIO(InstantCommand): #change name and refactor rollerio and rollertoggle
 	def __init__(self, liftSub):
