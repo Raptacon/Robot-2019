@@ -35,7 +35,7 @@ class LifterSub(Subsystem):
 	
     def StopLifter(self):
         print(self.level)
-        self.lifterMotors['liftMotor'].set(-0.001)
+        self.lifterMotors['liftMotor'].set(0.001)
 	
     def RaiseLevel(self):
         #if self.level < Level.kHighBall:
