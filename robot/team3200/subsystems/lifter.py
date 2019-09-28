@@ -32,12 +32,6 @@ class LifterSub(Subsystem):
 		for key, motorDesc in self.map.motorsMap.lifterMotors.items():
 			self.lifterMotors[key] = team3200.motorHelper.createMotor(motorDesc)
 			print(key, motorDesc, self.lifterMotors[key])
-
-		for key, motorDesc in self.map.motorsMap.angleMotor.items():
-			self.angleMotor[key] = team3200.motorHelper.createMotor(motorDesc)#creates test angle motor; for learning encoders
-			print(key, motorDesc, self.angleMotor[key])
-		
-			
 	
 	def StopLifter(self):
 		print(self.level)
@@ -50,9 +44,6 @@ class LifterSub(Subsystem):
 			self.level = self.level + 1
 
 	def LowerLevel(self):
-		print(self.angleMotor.getQuadraturePosition())
-		self.angleMotor.setQuadraturePosition(128)
-        #Inserted code above to help with troubleshooting the encoders. This allows us to get the quadrature counts to then reset the counts to 128
 		if self.level > Level.kFloor:
 			self.lifterMotors['liftMotor'].set(-.5)
 			wpilib.Timer.delay(1)
