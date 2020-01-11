@@ -3,6 +3,7 @@ import wpilib.xboxcontroller
 import wpilib
 import ctre
 import hal
+import rev
 class RobotMap():
     """
     Robot map gathers all the hard coded values needed to interface with 
@@ -27,14 +28,15 @@ class CANMap():
         rampRate = .2
         #rotRampRate = .2
         pid = {'controlType':ctre.WPI_TalonSRX.ControlMode.Velocity, 'feedbackDevice':0, 'sensorPhase':False, 'kPreScale': 7000, 'kP': .125, 'kI': 0, 'kD': .3, 'kF': 0} #These are all values to be tuned
+        pidSpark = {'controlType':3, 'feedbackDevice':0, 'sensorPhase':False, 'kPreScale': 6, 'kP': .125, 'kI': 0, 'kD': .3, 'kF': 0} #These are all values to be tuned
         lifterMotors = {}
         driveMotors = {}
         '''The code below is an example of code for the SparkMax motor controllers'''
         #shooterMotors['RotMotor'] = {'channel':4, 'inverted':False, 'type':'SparkMax', 'pid':rotPid, 'motorType':MotorType.kBrushless}
         '''The code below is for controlling TalonSRX motor controllers as well as their followers'''
-        driveMotors['leftMotor'] = {'channel':5, 'inverted':True,'type':'SparkMax', 'pid':pid, "rampRate":rampRate}
-        driveMotors['leftFollower'] = {'channel':3, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':5, "rampRate":rampRate}
-        driveMotors['leftFollowerFollower'] = {'channel':1, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':5, "rampRate":rampRate}
+        driveMotors['leftMotor'] = {'channel':30, 'inverted':True,'type':'SparkMax', 'pid':pidSpark, 'motorType':1}
+        driveMotors['leftFollower'] = {'channel':3, 'inverted':True, 'type':'CANTalon', "rampRate":rampRate}
+        driveMotors['leftFollowerFollower'] = {'channel':1, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':3, "rampRate":rampRate}
         
         driveMotors['rightMotor'] = {'channel':4, 'inverted':True, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         driveMotors['rightFollower'] = {'channel':2, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':4, "rampRate":rampRate}
@@ -42,7 +44,7 @@ class CANMap():
         
         lifterMotors['liftMotor'] = {'channel':7, 'inverted':True, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         lifterMotors['roller'] = {'channel':8, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
-        lifterMotors['roller2'] = {'channel':6, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':5, "rampRate":rampRate}
+        lifterMotors['roller2'] = {'channel':6, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel': 3, "rampRate":rampRate}
         angleMotor = {'channel':13, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         
         self.driveMotors = driveMotors

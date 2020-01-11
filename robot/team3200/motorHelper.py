@@ -17,15 +17,15 @@ def createMotor(motorDescp):
 
     elif motorDescp['type'] == 'CANTalonFollower':
         motor =ctre.wpi_talonsrx.WPI_TalonSRX(motorDescp['channel'])
-        motor.set(ctre.wpi_talonsrx.ControlMode.Follower, motorDescp['masterChannel'])
+        motor.set(mode = ctre.wpi_talonsrx.ControlMode.Follower, demand0 = motorDescp['masterChannel'])
         
     elif motorDescp['type'] == 'SparkMax':
         '''This is where SparkMax motor controllers are set up'''
         if 'pid' in motorDescp and motorDescp['pid'] != None:
-            motor = SparkMaxFeedback(motorDescp['channel'], motorDescp['motorType'])
+            motor = SparkMaxFeedback(motorDescp)
             motor.setupPid()
         else:
-            motor = SparkMaxFeedback(motorDescp['channel'], motorDescp['motorType'])
+            motor = SparkMaxFeedback(motorDescp)
     
     else:
         print("Unknown Motor")
@@ -88,15 +88,33 @@ class WPI_TalonFeedback(ctre.wpi_talonsrx.WPI_TalonSRX):
         self.config_kI(0, pid['kI'], 10)
         self.config_kD(0, pid['kD'], 10)
         
-        
     def set(self, speed):
-        return ctre.wpi_talonsrx.WPI_TalonSRX.set(self, self.controlType, speed * self.kMult)
+        return ctre.wpi_talonsrx.WPI_TalonSRX.set(self, self.controlType, speed * self.kPreScale)
             
 class SparkMaxFeedback(rev.CANSparkMax):
-    def __init__(self, motorDescp):
-        rev.CANSparkMax.__init__(self, motorDescp['channel'], motorDescp['motorType'])
-        self.motorDescp = motorDescp
+    def __init__(self,motorDescription):
+        self.motorDescription = motorDescription
+        rev.CANSparkMax.__init__(self, motorDescription['channel'], rev.MotorType(self.motorDescription['motorType']))
+        self.setInverted(self.motorDescription['inverted'])
 
     def setupPid(self):
-        #Put something here please
-        pass
+        if not 'pid' in self.motorDescription:
+            print("Motor channel %d has no PID"%(self.motorDescription['channel']))
+            return
+        self.pid = self.motorDescription['pid']
+        pid = self.pid
+        self.pidControlType = rev.ControlType(pid['controlType'])
+        
+        self.kPreScale = pid['kPreScale']
+        self.PIDController = self.getPIDController() #creates pid controller
+
+        self.PIDController.setP(pid['kP'], pid['feedbackDevice'])
+        self.PIDController.setI(pid['kI'], pid['feedbackDevice'])
+        self.PIDController.setD(pid['kD'], pid['feedbackDevice'])
+        self.PIDController.setFF(pid['kF'], pid['feedbackDevice'])
+
+        self.PIDController.setOutputRange(-1, 1, pid['feedbackDevice'])
+        self.PIDController.setReference(0 , self.pidControlType, pid['feedbackDevice']) #Sets the control type to velocity on the pid slot we passed in
+    
+    def set(self, speed):
+        return self.PIDController.setReference(speed*self.pid['kPreScale'], self.pidControlType)

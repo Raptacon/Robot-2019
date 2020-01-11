@@ -18,7 +18,7 @@ class DriveTrainSub(Subsystem):
         creates the drivetrain mixer
         '''
         super().__init__("DriveTrainSub")
-        self.robot = team3200.getRobot();
+        self.robot = team3200.getRobot()
         self.map = self.robot.map
         self.driveMotors = {}
         self.canDrive = True
