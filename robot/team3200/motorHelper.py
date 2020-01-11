@@ -21,8 +21,12 @@ def createMotor(motorDescp):
         
     elif motorDescp['type'] == 'SparkMax':
         '''This is where SparkMax motor controllers are set up'''
-        motor = rev.CANSparkMax(motorDescp['channel'], motorDescp['motorType'])
-        
+        if 'pid' in motorDescp and motorDescp['pid'] != None:
+            motor = SparkMaxFeedback(motorDescp['channel'], motorDescp['motorType'])
+            motor.setupPid()
+        else:
+            motor = SparkMaxFeedback(motorDescp['channel'], motorDescp['motorType'])
+    
     else:
         print("Unknown Motor")
     
@@ -68,7 +72,7 @@ class WPI_TalonFeedback(ctre.wpi_talonsrx.WPI_TalonSRX):
         self.setSensorPhase(pid['sensorPhase'])
         self.pidControlType = pid['controlType']
         
-        self.kMult = pid['kMult']
+        self.kPreScale = pid['kPreScale']
         
         #/* set the peak, nominal outputs, and deadband */
         self.configNominalOutputForward(0, 10)
@@ -92,3 +96,7 @@ class SparkMaxFeedback(rev.CANSparkMax):
     def __init__(self, motorDescp):
         rev.CANSparkMax.__init__(self, motorDescp['channel'], motorDescp['motorType'])
         self.motorDescp = motorDescp
+
+    def setupPid(self):
+        #Put something here please
+        pass
