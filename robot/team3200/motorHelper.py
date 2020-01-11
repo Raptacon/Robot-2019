@@ -64,20 +64,20 @@ class WPI_TalonFeedback(ctre.wpi_talonsrx.WPI_TalonSRX):
             return
         pid = self.motorDescription['pid']
         self.controlType = pid['controlType']
-        self.configSelectedFeedbackSensor(pid['feedbackType'], 0, 10)
+        self.configSelectedFeedbackSensor(pid['feedbackDevice'], 0, 10)
         self.setSensorPhase(pid['sensorPhase'])
         self.pidControlType = pid['controlType']
         
-        self.kInput = pid['kInput']
+        self.kMult = pid['kMult']
         
         #/* set the peak, nominal outputs, and deadband */
-        self.configNominalOutputForward(0, 10);
-        self.configNominalOutputReverse(0, 10);
-        self.configPeakOutputForward(1, 10);
-        self.configPeakOutputReverse(-1, 10);
+        self.configNominalOutputForward(0, 10)
+        self.configNominalOutputReverse(0, 10)
+        self.configPeakOutputForward(1, 10)
+        self.configPeakOutputReverse(-1, 10)
         
         
-        self.configVelocityMeasurementPeriod(self.VelocityMeasPeriod.Period_1Ms,10);
+        self.configVelocityMeasurementPeriod(self.VelocityMeasPeriod.Period_1Ms,10) 
         #/* set closed loop gains in slot0 */
         self.config_kF(0, pid['kF'], 10)
         self.config_kP(0, pid['kP'], 10)
@@ -86,7 +86,7 @@ class WPI_TalonFeedback(ctre.wpi_talonsrx.WPI_TalonSRX):
         
         
     def set(self, speed):
-        return ctre.wpi_talonsrx.WPI_TalonSRX.set(self, self.controlType, speed * self.kInput)
+        return ctre.wpi_talonsrx.WPI_TalonSRX.set(self, self.controlType, speed * self.kMult)
             
 class SparkMaxFeedback(rev.CANSparkMax):
     def __init__(self, motorDescp):

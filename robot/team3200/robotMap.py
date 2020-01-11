@@ -1,5 +1,7 @@
 
 import wpilib.xboxcontroller
+import wpilib
+import ctre
 import hal
 class RobotMap():
     """
@@ -24,22 +26,22 @@ class CANMap():
         '''
         rampRate = .2
         #rotRampRate = .2
-        pid = None
+        pid = {'controlType':ctre.WPI_TalonSRX.ControlMode.Velocity, 'feedbackDevice':0, 'sensorPhase':False, 'kMult': 7000, 'kP': .125, 'kI': 0, 'kD': .3, 'kF': 0} #These are all values to be tuned
         lifterMotors = {}
         driveMotors = {}
         '''The code below is an example of code for the SparkMax motor controllers'''
         #shooterMotors['RotMotor'] = {'channel':4, 'inverted':False, 'type':'SparkMax', 'pid':rotPid, 'motorType':MotorType.kBrushless}
         '''The code below is for controlling TalonSRX motor controllers as well as their followers'''
-        driveMotors['leftMotor'] = {'channel':1, 'inverted':True,'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
-        driveMotors['leftFollower'] = {'channel':3, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':1, "rampRate":rampRate}
-        driveMotors['leftFollowerFollower'] = {'channel':5, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':1, "rampRate":rampRate}
+        driveMotors['leftMotor'] = {'channel':5, 'inverted':True,'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
+        driveMotors['leftFollower'] = {'channel':3, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':5, "rampRate":rampRate}
+        driveMotors['leftFollowerFollower'] = {'channel':1, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':5, "rampRate":rampRate}
         
-        driveMotors['rightMotor'] = {'channel':0, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
-        driveMotors['rightFollower'] = {'channel':2, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':0, "rampRate":rampRate}
-        driveMotors['rightFollowerFollower'] = {'channel':4, 'inverted':False, 'type':'CANTalonFollower', 'masterChannel':0, "rampRate":rampRate}
+        driveMotors['rightMotor'] = {'channel':4, 'inverted':True, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
+        driveMotors['rightFollower'] = {'channel':2, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':4, "rampRate":rampRate}
+        driveMotors['rightFollowerFollower'] = {'channel':0, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':4, "rampRate":rampRate}
         
-        lifterMotors['liftMotor'] = {'channel':4, 'inverted':True, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
-        lifterMotors['roller'] = {'channel':5, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
+        lifterMotors['liftMotor'] = {'channel':7, 'inverted':True, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
+        lifterMotors['roller'] = {'channel':8, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         lifterMotors['roller2'] = {'channel':6, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':5, "rampRate":rampRate}
         angleMotor = {'channel':13, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         
