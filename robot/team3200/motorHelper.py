@@ -3,6 +3,9 @@
 import rev
 import ctre 
 
+import logging
+log = logging.getLogger("console") #These logs were set up for testing, should not be persistent, please delete if you see these and I forgot
+log.setLevel(logging.DEBUG)
 
 def createMotor(motorDescp):
     #Might want more motor types for set up
@@ -94,7 +97,7 @@ class WPI_TalonFeedback(ctre.wpi_talonsrx.WPI_TalonSRX):
 class SparkMaxFeedback(rev.CANSparkMax):
     def __init__(self,motorDescription):
         self.motorDescription = motorDescription
-        rev.CANSparkMax.__init__(self, motorDescription['channel'], self.motorDescription['motorType'])
+        rev.CANSparkMax.__init__(self, self.motorDescription['channel'], self.motorDescription['motorType'])
         self.setInverted(self.motorDescription['inverted'])
 
     def setupPid(self):
@@ -117,4 +120,5 @@ class SparkMaxFeedback(rev.CANSparkMax):
         self.PIDController.setReference(0 , self.pidControlType, pid['feedbackDevice']) #Sets the control type to velocity on the pid slot we passed in
     
     def set(self, speed):
+        log.debug("Should be: %f", speed)
         return self.PIDController.setReference(speed*self.pid['kPreScale'], self.pidControlType)
