@@ -94,7 +94,7 @@ class WPI_TalonFeedback(ctre.wpi_talonsrx.WPI_TalonSRX):
 class SparkMaxFeedback(rev.CANSparkMax):
     def __init__(self,motorDescription):
         self.motorDescription = motorDescription
-        rev.CANSparkMax.__init__(self, motorDescription['channel'], rev.MotorType(self.motorDescription['motorType']))
+        rev.CANSparkMax.__init__(self, motorDescription['channel'], self.motorDescription['motorType'])
         self.setInverted(self.motorDescription['inverted'])
 
     def setupPid(self):
