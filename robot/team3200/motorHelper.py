@@ -1,5 +1,6 @@
     # -*- coding: utf-8 -*-
 
+import rev
 import ctre 
 
 
@@ -18,10 +19,9 @@ def createMotor(motorDescp):
         motor =ctre.wpi_talonsrx.WPI_TalonSRX(motorDescp['channel'])
         motor.set(ctre.wpi_talonsrx.ControlMode.Follower, motorDescp['masterChannel'])
         
-        
     elif motorDescp['type'] == 'SparkMax':
         '''This is where SparkMax motor controllers are set up'''
-        #motor = rev.CANSparkMax(motorDescp['channel'], motorDescp['motorType'])
+        motor = rev.CANSparkMax(motorDescp['channel'], motorDescp['motorType'])
         
     else:
         print("Unknown Motor")
@@ -55,6 +55,7 @@ class WPI_TalonFeedback(ctre.wpi_talonsrx.WPI_TalonSRX):
     def __init__(self,motorDescription):
         ctre.wpi_talonsrx.WPI_TalonSRX.__init__(self,motorDescription['channel'])
         self.motorDescription = motorDescription
+        
     def setupPid(self,motorDescription = None):
         if not motorDescription:
             motorDescription = self.motorDescription
@@ -63,20 +64,20 @@ class WPI_TalonFeedback(ctre.wpi_talonsrx.WPI_TalonSRX):
             return
         pid = self.motorDescription['pid']
         self.controlType = pid['controlType']
-        self.configSelectedFeedbackSensor(pid['feedbackType'], 0, 10)
+        self.configSelectedFeedbackSensor(pid['feedbackDevice'], 0, 10)
         self.setSensorPhase(pid['sensorPhase'])
         self.pidControlType = pid['controlType']
         
-        self.kInput = pid['kInput']
+        self.kPreScale = pid['kPreScale']
         
         #/* set the peak, nominal outputs, and deadband */
-        self.configNominalOutputForward(0, 10);
-        self.configNominalOutputReverse(0, 10);
-        self.configPeakOutputForward(1, 10);
-        self.configPeakOutputReverse(-1, 10);
+        self.configNominalOutputForward(0, 10)
+        self.configNominalOutputReverse(0, 10)
+        self.configPeakOutputForward(1, 10)
+        self.configPeakOutputReverse(-1, 10)
         
         
-        self.configVelocityMeasurementPeriod(self.VelocityMeasPeriod.Period_1Ms,10);
+        self.configVelocityMeasurementPeriod(self.VelocityMeasPeriod.Period_1Ms,10) 
         #/* set closed loop gains in slot0 */
         self.config_kF(0, pid['kF'], 10)
         self.config_kP(0, pid['kP'], 10)
@@ -85,10 +86,9 @@ class WPI_TalonFeedback(ctre.wpi_talonsrx.WPI_TalonSRX):
         
         
     def set(self, speed):
-        return ctre.wpi_talonsrx.WPI_TalonSRX.set(self, self.controlType, speed * self.kInput)
+        return ctre.wpi_talonsrx.WPI_TalonSRX.set(self, self.controlType, speed * self.kPreScale)
             
-'''class SparkMaxFeedback(rev.CANSparkMax):
+class SparkMaxFeedback(rev.CANSparkMax):
     def __init__(self, motorDescp):
         rev.CANSparkMax.__init__(self, motorDescp['channel'], motorDescp['motorType'])
         self.motorDescp = motorDescp
-'''

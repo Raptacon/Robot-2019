@@ -31,10 +31,10 @@ class DriveTrainSub(Subsystem):
         
     def setTankDrive(self, leftSide, rightSide):
         if self.canDrive == True:
-            self.driveTrain.tankDrive(leftSide, rightSide, False)
+            self.driveTrain.tankDrive(leftSide, rightSide)
         
     def setArcadeDrive(self, speed, rot):
-        self.driveTrain.arcadeDrive(speed, rot, False)
+        self.driveTrain.arcadeDrive(speed, rot)
 
     def initDefaultCommand(self):
         if self.defaultCommand == None:
