@@ -30,7 +30,7 @@ class CANMap():
         rampRate = .2
         #rotRampRate = .2
         pid = {'controlType':ctre.WPI_TalonSRX.ControlMode.Velocity, 'feedbackDevice':0, 'sensorPhase':False, 'kPreScale': 7000, 'kP': .125, 'kI': 0, 'kD': .3, 'kF': 0} #These are all values to be tuned
-        pidSpark = {'controlType':rev.ControlType.kVelocity, 'feedbackDevice':0, 'sensorPhase':False, 'kPreScale': 1000, 'kP': 0.0005, 'kI': 0, 'kD': 0.05, 'kF': 0} #These are all values to be tuned (Prescale is a multiplier, position is measured in 1/6 rotations.)
+        pidSpark = {'controlType':rev.ControlType.kVelocity, 'feedbackDevice':0, 'sensorPhase':False, 'kPreScale': 1000, 'kP': 0.0004, 'kI': 0, 'kD': 3, 'kF': 0.3} #These are all values to be tuned (Prescale is a multiplier, position is measured in 1/6 rotations.)
         lifterMotors = {}
         driveMotors = {}
         '''The code below is an example of code for the SparkMax motor controllers'''
