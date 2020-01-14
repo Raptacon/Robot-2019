@@ -68,7 +68,7 @@ class WPI_TalonFeedback(ctre.wpi_talonsrx.WPI_TalonSRX):
         self.setSensorPhase(pid['sensorPhase'])
         self.pidControlType = pid['controlType']
         
-        self.kMult = pid['kMult']
+        self.kPreScale = pid['kPreScale']
         
         #/* set the peak, nominal outputs, and deadband */
         self.configNominalOutputForward(0, 10)
@@ -86,7 +86,7 @@ class WPI_TalonFeedback(ctre.wpi_talonsrx.WPI_TalonSRX):
         
         
     def set(self, speed):
-        return ctre.wpi_talonsrx.WPI_TalonSRX.set(self, self.controlType, speed * self.kMult)
+        return ctre.wpi_talonsrx.WPI_TalonSRX.set(self, self.controlType, speed * self.kPreScale)
             
 class SparkMaxFeedback(rev.CANSparkMax):
     def __init__(self, motorDescp):
