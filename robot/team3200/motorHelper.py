@@ -107,6 +107,7 @@ class SparkMaxFeedback(rev.CANSparkMax):
         self.pid = self.motorDescription['pid']
         pid = self.pid
         self.pidControlType = rev.ControlType(pid['controlType'])
+        self.encoder = self.getEncoder()
         
         self.kPreScale = pid['kPreScale']
         self.PIDController = self.getPIDController() #creates pid controller
@@ -120,5 +121,5 @@ class SparkMaxFeedback(rev.CANSparkMax):
         self.PIDController.setReference(0 , self.pidControlType, pid['feedbackDevice']) #Sets the control type to velocity on the pid slot we passed in
     
     def set(self, speed):
-        log.debug("Should be: %f", speed)
+        log.debug("Should be: %f, is %f", speed*self.pid['kPreScale'], self.encoder.getVelocity())
         return self.PIDController.setReference(speed*self.pid['kPreScale'], self.pidControlType)

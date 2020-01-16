@@ -30,13 +30,14 @@ class CANMap():
         rampRate = .2
         #rotRampRate = .2
         pid = {'controlType':ctre.WPI_TalonSRX.ControlMode.Velocity, 'feedbackDevice':0, 'sensorPhase':False, 'kPreScale': 7000, 'kP': .125, 'kI': 0, 'kD': .3, 'kF': 0} #These are all values to be tuned
-        pidSpark = {'controlType':rev.ControlType.kVelocity, 'feedbackDevice':0, 'sensorPhase':False, 'kPreScale': 1000, 'kP': 0.0004, 'kI': 0, 'kD': 3, 'kF': 0.3} #These are all values to be tuned (Prescale is a multiplier, position is measured in 1/6 rotations.)
+        pidSparkVelocity = {'controlType':rev.ControlType.kVelocity, 'feedbackDevice':0, 'sensorPhase':False, 'kPreScale': 1000, 'kP': 0.0001, 'kI': 0.000001, 'kD': 0, 'kF': 0} #These are all values to be tuned (Prescale is a multiplier, position is measured in 1/6 rotations.)
+        pidSparkPosition = {'controlType':rev.ControlType.kPosition, 'feedbackDevice':1, 'sensorPhase':False, 'kPreScale': 6, 'kP': 0.1, 'kI': 0.000001, 'kD': 0.3, 'kF': 0}
         lifterMotors = {}
         driveMotors = {}
         '''The code below is an example of code for the SparkMax motor controllers'''
         #shooterMotors['RotMotor'] = {'channel':4, 'inverted':False, 'type':'SparkMax', 'pid':rotPid, 'motorType':MotorType.kBrushless}
         '''The code below is for controlling TalonSRX motor controllers as well as their followers'''
-        driveMotors['leftMotor'] = {'channel':30, 'inverted':True,'type':'SparkMax', 'pid':pidSpark, 'motorType':rev.MotorType.kBrushless}
+        driveMotors['leftMotor'] = {'channel':30, 'inverted':False,'type':'SparkMax', 'pid':pidSparkVelocity, 'motorType':rev.MotorType.kBrushless}
         driveMotors['leftFollower'] = {'channel':3, 'inverted':True, 'type':'CANTalon', "rampRate":rampRate}
         driveMotors['leftFollowerFollower'] = {'channel':1, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':3, "rampRate":rampRate}
         

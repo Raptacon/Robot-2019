@@ -86,7 +86,8 @@ class MyRobot(commandbased.CommandBasedRobot):
             sensEntry = self.liveWindowTable.getEntry(sensName)
             jDrive = team3200.commands.joystickDrive.JoystickDrive(sensEntry)
             self.dtSub.setDefaultCommand(jDrive)
-    
+        else:
+            jDrive = team3200.commands.joystickDrive.JoystickDrive([.8])
     def testInit(self):
         angleMotor = self.map.motorsMap.angleMotor
         team3200.motorHelper.createMotor(angleMotor)
