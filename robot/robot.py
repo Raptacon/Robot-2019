@@ -74,9 +74,9 @@ class MyRobot(commandbased.CommandBasedRobot):
         self.rollerIO = JoystickButton(self.auxController, self.map.controllerMap.auxController['ForwardRoller'])
         self.rollerIO.whenPressed(lifterControl.ForwardRoller(self.liftSub))
         self.rollerIO.whenReleased(lifterControl.StopRoller(self.liftSub))
-        self.rollerToggle = JoystickButton(self.auxController, self.map.controllerMap.auxController['ReverseRoller'])
-        self.rollerToggle.whenPressed(lifterControl.ReverseRoller(self.liftSub))
-        self.rollerToggle.whenReleased(lifterControl.StopRoller(self.liftSub))
+        #self.rollerToggle = JoystickButton(self.auxController, self.map.controllerMap.auxController['ReverseRoller'])
+        #self.rollerToggle.whenPressed(lifterControl.ReverseRoller(self.liftSub))
+        #self.rollerToggle.whenReleased(lifterControl.StopRoller(self.liftSub))
 
 
     def driveInit(self):

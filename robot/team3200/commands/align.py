@@ -28,24 +28,19 @@ class RightTurn(Command):
 class AlignButton(InstantCommand):
     def __init__(self, dtSub):
         super().__init__("Align Button")
-        self.table = NetworkTables.getTable("limelight")
+        self.gripTable = NetworkTables.getTable("GRIP")
         self.dtSub = dtSub
+        self.aligning = True
         
     def execute(self):
         '''This aligns the robot up to a target it sees when a button is pressed'''
         print("Alignment Started")
-        if(self.table.getEntry('tv').value == 1):
-            self.tx = self.table.getNumber('tx', None)
-            while(self.tx < -2 or self.tx > 2):
-                self.tx = self.table.getNumber('tx', None)
-                if(self.tx < 0):
-                    '''Active when the target is to the left.'''
-                    #print(self.tx)
-                    self.dtSub.autoTurn(-.5, .5)
-                elif(self.tx > 0):
-                    '''Active when the target is to the right.'''
-                    #print(self.tx)
-                    self.dtSub.autoTurn(.5, -.5)
+        self.aligning = not self.aligning # designed to "toggle" this command, so that you can continuously align, until you click the button again
+        areasArray = NetworkTables.getEntry("/vision/yellow_stuff/Areas").get() # areasArray = the value of the entry "Areas"
+        for a in range (0, len(areasArray)-1): # looping through all values in the array
+            pass
+                
+
 class DriveStraight(Command):
     def __init__(self, dtSub):
         super().__init__("Right Turn")
