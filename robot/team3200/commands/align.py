@@ -34,11 +34,11 @@ class AlignButton(InstantCommand):
         
     def execute(self):
         '''This aligns the robot up to a target it sees when a button is pressed'''
-        print("Alignment Started")
+        
         self.aligning = not self.aligning # designed to "toggle" this command, so that you can continuously align, until you click the button again
         areasArray = NetworkTables.getEntry("/vision/yellow_stuff/Areas").get() # areasArray = the value of the entry "Areas"
         for a in range (0, len(areasArray)-1): # looping through all values in the array
-            pass
+            pass # I was originally thinking of using an if loop "if it's too far to thr right, rotate clockwise. if it's too far left, rotate counterclockwise. otherwise, do nothing" More accurately, I would really want to calculate angle that the bot would have to move based on the location of the item in the frame. (note: it doesn't matter how far away something is because you rotate on the spot) my two concerns would be changes in camera position, and thus, angle, and then running it countinuously. 
                 
 
 class DriveStraight(Command):
