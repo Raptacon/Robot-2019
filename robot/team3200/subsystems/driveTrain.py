@@ -25,7 +25,7 @@ class DriveTrainSub(Subsystem):
         self.canDrive = True
         
         for key, motorDesc in self.map.motorsMap.driveMotors.items():
-            self.driveMotors[key] = team3200.motorHelper.createMotor(motorDesc)
+            self.driveMotors[key] = team3200.motorHelper.createMotor(motorDesc, self.driveMotors)
             print(key, motorDesc, self.driveMotors[key])
 
         self.driveTrain = dd.DifferentialDrive(self.driveMotors['leftMotor'], self.driveMotors['rightMotor'])
