@@ -8,6 +8,7 @@ from team3200.commands.joystickDrive import JoystickDrive
 import team3200
 import team3200.motorHelper
 
+
 class DriveTrainSub(Subsystem):
     '''
     This is the subsystem to control the robots wheels.
@@ -18,24 +19,24 @@ class DriveTrainSub(Subsystem):
         creates the drivetrain mixer
         '''
         super().__init__("DriveTrainSub")
-        self.robot = team3200.getRobot();
+        self.robot = team3200.getRobot()
         self.map = self.robot.map
         self.driveMotors = {}
         self.canDrive = True
         
         for key, motorDesc in self.map.motorsMap.driveMotors.items():
-            self.driveMotors[key] = team3200.motorHelper.createMotor(motorDesc)
+            self.driveMotors[key] = team3200.motorHelper.createMotor(motorDesc, self.driveMotors)
             print(key, motorDesc, self.driveMotors[key])
 
         self.driveTrain = dd.DifferentialDrive(self.driveMotors['leftMotor'], self.driveMotors['rightMotor'])
         
     def setTankDrive(self, leftSide, rightSide):
         if self.canDrive == True:
-            self.driveTrain.tankDrive(leftSide, rightSide, False)
+            self.driveTrain.tankDrive(leftSide, rightSide)
         
     def setArcadeDrive(self, speed, rot):
-        self.driveTrain.arcadeDrive(speed, rot, False)
-
+        self.driveTrain.arcadeDrive(speed, rot)
+        
     def initDefaultCommand(self):
         if self.defaultCommand == None:
             self.setDefaultCommand(JoystickDrive())
