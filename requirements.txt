@@ -1,0 +1,8 @@
+pygame 
+pyfrc<2020 
+robotpy-ctre<2020 
+robotpy-navx<2020 
+robotpy-rev<2020 
+wpilib<2020 
+pynetworktables==2019.0.2 
+robotpy-wpilib-utilities<2020 

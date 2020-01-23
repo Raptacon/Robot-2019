@@ -27,23 +27,22 @@ class CANMap():
         '''
         holds mappings to all the motors in the robot
         '''
+        encoder = wpilib.Encoder(0, 1)
         rampRate = .2
         #rotRampRate = .2
-        pid = {'controlType':ctre.WPI_TalonSRX.ControlMode.Velocity, 'feedbackDevice':0, 'sensorPhase':False, 'kPreScale': 7000, 'kP': .125, 'kI': 0, 'kD': .3, 'kF': 0} #These are all values to be tuned
-        pidSparkVelocity = {'controlType':rev.ControlType.kVelocity, 'feedbackDevice':0, 'sensorPhase':False, 'kPreScale': 5000, 'kP': 0.0001, 'kI': 0.000001, 'kD': 0, 'kF': 0} #These are all values to be tuned (Prescale is a multiplier, position is measured in 1/6 rotations.)
+        pid = {'controlType': wpilib.PIDBase.PIDSourceType(0), 'feedbackDevice':0, 'sensorPhase':False, 'kPreScale': 7000, 'kP': 0.0003, 'kI': 0.00001, 'kD': 0, 'kF': 0} #These are all values to be tuned
+        #pidSparkVelocity = {'controlType':rev.ControlType.kVelocity, 'feedbackDevice':0, 'sensorPhase':False, 'kPreScale': 5000, 'kP': 0.0001, 'kI': 0.000001, 'kD': 0, 'kF': 0} #These are all values to be tuned (Prescale is a multiplier, position is measured in 1/6 rotations.)
         #pidSparkPosition = {'controlType':rev.ControlType.kPosition, 'feedbackDevice':1, 'sensorPhase':False, 'kPreScale': 6, 'kP': 0.1, 'kI': 0.000001, 'kD': 0.3, 'kF': 0}
         lifterMotors = {}
         driveMotors = {}
         '''The code below is an example of code for the SparkMax motor controllers'''
         #shooterMotors['RotMotor'] = {'channel':4, 'inverted':False, 'type':'SparkMax', 'pid':rotPid, 'motorType':MotorType.kBrushless}
         '''The code below is for controlling TalonSRX motor controllers as well as their followers'''
-        driveMotors['leftMotor'] = {'channel':30, 'inverted': False,'type':'SparkMax', 'pid':pidSparkVelocity, 'motorType':rev.MotorType.kBrushless}
-        driveMotors['leftFollower'] = {'channel':31, 'inverted': True, 'type':'SparkMaxFollower', 'motorType': rev.MotorType.kBrushed, 'masterChannel': 30}
-        #driveMotors['leftFollowerFollower'] = {'channel':1, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':30, "rampRate":rampRate}
+        driveMotors['leftMotor'] = {'channel': 2, 'inverted': True, 'type':'CANTalon', 'pid': pid, 'encoderSource': encoder}
         
-        driveMotors['rightMotor'] = {'channel':4, 'inverted':True, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
-        driveMotors['rightFollower'] = {'channel':2, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':4, "rampRate":rampRate}
-        driveMotors['rightFollowerFollower'] = {'channel':0, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':4, "rampRate":rampRate}
+        driveMotors['rightMotor'] = {'channel':1, 'inverted':False, 'type':'CANTalon', 'pid':None, "rampRate":rampRate}
+        driveMotors['rightFollower'] = {'channel':2, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':1, "rampRate":rampRate}
+        driveMotors['rightFollowerFollower'] = {'channel':0, 'inverted':True, 'type':'CANTalonFollower', 'masterChannel':1, "rampRate":rampRate}
         
         lifterMotors['liftMotor'] = {'channel':7, 'inverted':True, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}
         lifterMotors['roller'] = {'channel':8, 'inverted':False, 'type':'CANTalon', 'pid':pid, "rampRate":rampRate}

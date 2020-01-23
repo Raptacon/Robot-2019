@@ -2,14 +2,13 @@
     This is a demo program showing how to use Mecanum control with the
     RobotDrive class.
 '''
-
+import hal
 import team3200
 import wpilib
 from networktables import NetworkTables
-from wpilib.buttons.joystickbutton import JoystickButton
+from wpilib.buttons import JoystickButton
 import commandbased
 from team3200.commands.lights import Lights
-
 from team3200.commands.align import RightTurn
 from team3200.commands.align import LeftTurn
 from team3200.commands.align import AlignButton
@@ -109,7 +108,7 @@ if __name__ == '__main__':
         wpilib.DriverStation._reset()
 
         #patch simulation
-        #we update the simluation files to ours. If we update WPIlib these may break
+        #we update the simluation files to ours. If we update WPIlib these may break (they broke)
         import sim.ui
         import sim.pygame_joysticks
         import pyfrc.sim
