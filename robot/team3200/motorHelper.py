@@ -79,19 +79,20 @@ class encoderFeedback(object):
             self.PIDController = wpilib.PIDController(self.pid['kP'], self.pid['kI'], self.pid['kD'], self.encoder, self.motor)
             self.PIDController.setInputRange(-2048, 2048)
             self.PIDController.setOutputRange(-1, 1)
-            self.PIDController.setContinuous(True)
             self.PIDController.setPIDSourceType(self.pid['controlType'])
             self.PIDController.enable()
         else:
             log.debug("You NEED to pass in a pid array to use encoders. You haven't.")
     def set(self, speed):
-        self.PIDController.setSetpoint(speed*2048)
+        self.PIDController.setSetpoint(speed*self.pid['kPreScale'])
     def get(self):
         return self.PIDController.get()
     def getPos(self):
         return self.encoder.get()
     def getError(self):
         return self.PIDController.getError()
+    def getRate(self):
+        return self.encoder.getRate()
 
 class WPI_TalonFeedback(ctre.wpi_talonsrx.WPI_TalonSRX):
     def __init__(self, motorDescription, encoder = None):
@@ -99,6 +100,8 @@ class WPI_TalonFeedback(ctre.wpi_talonsrx.WPI_TalonSRX):
         self.motorDescription = motorDescription
         self.pid = None
         self.encoder = encoder
+        if 'pid' in self.motorDescription:
+            self.pid = self.motorDescription['pid']
 
     def setEncoder(self, encoder):
         self.encoder = encoder
@@ -137,7 +140,7 @@ class WPI_TalonFeedback(ctre.wpi_talonsrx.WPI_TalonSRX):
             return ctre.wpi_talonsrx.WPI_TalonSRX.set(self, self.controlType, speed * self.kPreScale)
         elif self.encoder != None:
             self.encoder.set(speed)
-            log.debug("Out: %f, Error: %f, speed: %f", self.encoder.get(), self.encoder.getPos(), speed)
+            log.debug("Out: %f, Error: %f, speed: %f", self.encoder.get(), self.encoder.getRate()-(speed*self.pid['kPreScale']), speed)
             return ctre.wpi_talonsrx.WPI_TalonSRX.set(self, self.encoder.get())
         else:
             return ctre.wpi_talonsrx.WPI_TalonSRX.set(self, speed)
