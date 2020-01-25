@@ -76,10 +76,15 @@ class encoderFeedback(object):
         self.pid = None
         if 'pid' in motorDescription and motorDescription['pid'] != None:
             self.pid = motorDescription['pid']
-            self.PIDController = wpilib.PIDController(self.pid['kP'], self.pid['kI'], self.pid['kD'], self.encoder, self.motor)
+            self.PIDController = wpilib.PIDController(self.pid['kP'], self.pid['kI'], self.pid['kD'], self.pid['kF'], self.encoder, self.motor)
+            self.PIDController.setP(self.pid['kP'])
+            self.PIDController.setI(self.pid['kI'])
+            self.PIDController.setD(self.pid['kD'])
+            self.PIDController.setF(self.pid['kF'])
             self.PIDController.setInputRange(-2048, 2048)
             self.PIDController.setOutputRange(-1, 1)
             self.PIDController.setPIDSourceType(self.pid['controlType'])
+            self.PIDController.reset()
             self.PIDController.enable()
         else:
             log.debug("You NEED to pass in a pid array to use encoders. You haven't.")
@@ -100,6 +105,7 @@ class WPI_TalonFeedback(ctre.wpi_talonsrx.WPI_TalonSRX):
         self.motorDescription = motorDescription
         self.pid = None
         self.encoder = encoder
+        self.builtInEncoder = False
         if 'pid' in self.motorDescription:
             self.pid = self.motorDescription['pid']
 
@@ -107,6 +113,7 @@ class WPI_TalonFeedback(ctre.wpi_talonsrx.WPI_TalonSRX):
         self.encoder = encoder
         
     def setupPid(self, motorDescription = None):
+        self.builtInEncoder = True
         if not motorDescription:
             motorDescription = self.motorDescription
         if not 'pid' in self.motorDescription:
@@ -136,10 +143,10 @@ class WPI_TalonFeedback(ctre.wpi_talonsrx.WPI_TalonSRX):
         self.config_kD(0, self.pid['kD'], 10)
         
     def set(self, speed):
-        if self.pid != None and self.encoder == None:
+        if self.builtInEncoder and self.encoder == None:
             return ctre.wpi_talonsrx.WPI_TalonSRX.set(self, self.controlType, speed * self.kPreScale)
         elif self.encoder != None:
-            self.encoder.set(speed)
+            self.encoder.set(speed*self.pid['kPreScale'])
             log.debug("Out: %f, Error: %f, speed: %f", self.encoder.get(), self.encoder.getRate()-(speed*self.pid['kPreScale']), speed)
             return ctre.wpi_talonsrx.WPI_TalonSRX.set(self, self.encoder.get())
         else:
